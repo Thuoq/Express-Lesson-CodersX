@@ -1,0 +1,22 @@
+h1 Welcome to Library Books
+a(href="/create") Create New Books 
+form(action="/search")
+	input(type="text",name="name")
+	btn Search
+ul
+	each book in books
+		li
+			span= book.title
+			span &nbsp
+			span &nbsp
+			span &nbsp
+			span= book.detail
+			span &nbsp
+			span &nbsp
+			a(href="/books/" + book.id) View Book
+			span &nbsp
+			span &nbsp  
+			a(href="/books/"+ book.id + "/delete") Delete Book
+			span &nbsp
+			span &nbsp
+			a(href="/books/"+ book.id +"/edit") Edit Title Book

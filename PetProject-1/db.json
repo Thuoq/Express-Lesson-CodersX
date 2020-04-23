@@ -1,0 +1,9 @@
+{
+  "books": [
+    {
+      "title": "React",
+      "detail": "Master",
+      "id": 1
+    }
+  ]
+}
