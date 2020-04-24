@@ -1,0 +1,23 @@
+h1 This is All User display
+
+a(href="/users/create") Create New User
+
+	ul
+		each user in users
+			li 
+				span= user.name
+				span &nbsp
+				span &nbsp
+				span &nbsp
+				a(href="/users/" + user.id) View User
+				span &nbsp
+				span &nbsp  
+				span &nbsp
+				a(href="/users/" + user.id + "/edit") Edit User
+				span &nbsp
+				span &nbsp
+				span &nbsp  
+				a(href="/users/" + user.id + "/delete") Delete User
+
+
+
