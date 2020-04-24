@@ -1,19 +1,24 @@
 {
   "books": [
     {
-      "title": "Node JS",
+      "title": "NODE JS ",
       "detail": "Master",
-      "id": 1
+      "idBook": 1
     }
   ],
   "users": [
     {
-      "id": 1,
-      "name": "Thuong"
-    },
+      "idUser": 1,
+      "name": "thuong"
+    }
+  ],
+  "trancations": [
     {
-      "id": 2,
-      "name": "Phe"
+      "idTranscation": 1,
+      "match": {
+        "user": "thuong",
+        "book": "NODE JS"
+      }
     }
   ]
 }

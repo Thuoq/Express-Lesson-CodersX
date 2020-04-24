@@ -4,17 +4,17 @@ const db = require("../db");
 const storeBooks = db.get("books").value();
 router.get('/',(req,res)=> {
 	const books = [].concat(storeBooks)
-	res.render("index",{
+	res.render("books/books",{
 		books,
 	})
 })
 router.get('/create',(req,res) => {
-	res.render("createBook")
+	res.render("books/createBook")
 })
 router.post('/create',(req,res) => {
 	let id = storeBooks.length + 1;
 	let query = {...req.body}
-	const newBook = Object.assign({},query,{id: id})
+	const newBook = Object.assign({},query,{idBook: id})
 	db.get("books").push(newBook).write();
 	res.redirect("/books");
 })
@@ -22,7 +22,7 @@ router.get('/:id/delete',(req,res) => {
 	const idBook = req.params.id * 1 ; 
 	let bookDelete= {};
 	for(let i = 0 ; i < storeBooks.length ; i ++) {
-		if(idBook === storeBooks[i].id) {
+		if(idBook === storeBooks[i].idBook) {
 			bookDelete = storeBooks[i]
 		} 
 	}
@@ -31,8 +31,8 @@ router.get('/:id/delete',(req,res) => {
 })
 router.get("/:id/edit",(req,res) => {
 	const idBook = req.params.id * 1;
-	let book  = storeBooks.filter( el => el.id === idBook)
-	res.render("editTitleBook",{
+	let book  = storeBooks.filter( el => el.idBook === idBook)
+	res.render("books/editTitleBook",{
 		book: storeBooks
 	})
 })  
@@ -41,7 +41,7 @@ router.post("/:id/edit",(req,res) => {
 	let idBook = req.params.id * 1;
 	let bookUpdate = {}
 	for(let i = 0 ; i < storeBooks.length ; i ++) {
-		if(idBook === storeBooks[i].id) {
+		if(idBook === storeBooks[i].idBook) {
 			bookUpdate = storeBooks[i]
 		} 
 	}

@@ -1,5 +1,5 @@
 h1 Welcome to Library Books
-a(href="/create") Create New Books 
+a(href="/books/create") Create New Books 
 form(action="/search")
 	input(type="text",name="name")
 	btn Search
@@ -13,10 +13,10 @@ ul
 			span= book.detail
 			span &nbsp
 			span &nbsp
-			a(href="/books/" + book.id) View Book
+			a(href="/books/" + book.idBook) View Book
 			span &nbsp
 			span &nbsp  
-			a(href="/books/"+ book.id + "/delete") Delete Book
+			a(href="/books/"+ book.idBook + "/delete") Delete Book
 			span &nbsp
 			span &nbsp
-			a(href="/books/"+ book.id +"/edit") Edit Title Book
+			a(href="/books/"+ book.idBook +"/edit") Edit Title Book

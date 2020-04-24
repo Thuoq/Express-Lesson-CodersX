@@ -1,0 +1,11 @@
+form(action="/trancation/create",method="POST")
+	select(name="user")
+		each user in users
+			option= user.name
+	select(name="book")
+		each book in books 
+			option= book.title
+	br
+	br
+	br
+	button Trancation Now !!
