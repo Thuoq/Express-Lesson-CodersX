@@ -1,7 +1,7 @@
 {
   "books": [
     {
-      "title": "Thuong",
+      "title": "Node JS",
       "detail": "Master",
       "id": 1
     }
@@ -9,7 +9,11 @@
   "users": [
     {
       "id": 1,
-      "name": "a"
+      "name": "Thuong"
+    },
+    {
+      "id": 2,
+      "name": "Phe"
     }
   ]
 }
