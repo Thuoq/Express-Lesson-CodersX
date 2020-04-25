@@ -21,14 +21,5 @@
       "name": "Hien"
     }
   ],
-  "trancations": [
-    {
-      "idTranscation": 1,
-      "title": "NODE JS",
-      "detail": "Master",
-      "idBook": 1,
-      "idUser": 1,
-      "name": "thuong"
-    }
-  ]
+  "trancations": []
 }

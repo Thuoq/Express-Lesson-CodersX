@@ -8,6 +8,7 @@ router.get("/create",trancationsController.trancationCreate)
 
 router.post("/create",trancationsController.trancationCreatePost)
 
+router.get("/:id/compelete",trancationsController.transcactionCompelete)
 
 
 

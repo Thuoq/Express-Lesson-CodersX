@@ -5,7 +5,8 @@ a(href="/trancation/create") Create New Transcation
 ul
 	each el in trancations 
 		li
-			span= el.name + " mượn quyển sánch " + el.title
+			span= el.name + " mượn quyển sách " + el.title
 				span &nbsp
+				span &nbsp  
 				span &nbsp
-				span &nbsp
+			a(href="/trancation/" + el.idTranscation+"/compelete") Compelete

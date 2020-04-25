@@ -45,3 +45,10 @@ exports.trancationCreatePost = (req,res) => {
 	res.redirect("/");
 
 }
+exports.transcactionCompelete = (req,res) => {
+	let idCompelete = req.params.id * 1;
+	db.get("trancations")
+	  .remove({idTranscation: idCompelete})
+	  .write();
+	res.render("trancations/compeleteTrancation")
+}
