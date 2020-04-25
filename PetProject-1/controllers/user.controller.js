@@ -1,18 +1,18 @@
 const db = require("../db");
 const storeUsers = db.get("users").value();
 
-export.indexUser = (req,res) => {
+exports.indexUser = (req,res) => {
 	let currentUsers = [].concat(storeUsers)
 	res.render("users/users",{
 		users : currentUsers
 	})
 }
 
-export.userCreate =(req,res) => {
+exports.userCreate =(req,res) => {
 	res.render("users/createUser")
 }
 
-export.userCreatePost = (req,res) => {
+exports.userCreatePost = (req,res) => {
 	let newIdUser = storeUsers.length +1;
 	let query = {...req.body}
 	const newUser = Object.assign({},{idUser: newIdUser},query);
@@ -21,7 +21,7 @@ export.userCreatePost = (req,res) => {
 }
 
 
-export.userEdit = (req,res) => {
+exports.userEdit = (req,res) => {
 	const idUser = req.params.id * 1;
 	let user  = storeUsers.filter( el => el.idUser === idUser)
 	res.render("users/editNameUser",{
@@ -29,7 +29,7 @@ export.userEdit = (req,res) => {
 	})
 }
 
-export.userEditPost = (req,res) => {
+exports.userEditPost = (req,res) => {
 	let newUserName = req.body.edit;
 	let idUser = req.params.id * 1;
 	let bookUpdate = {}
@@ -45,7 +45,7 @@ export.userEditPost = (req,res) => {
 	  .write()
 	res.redirect("/users")
 }
-export.userDelete = (req,res) => {
+exports.userDelete = (req,res) => {
 	const idUser = req.params.id * 1 ; 
 	let userDelete= {};
 	for(let i = 0 ; i < storeUsers.length ; i ++) {
