@@ -4,6 +4,7 @@ const userRouter = require("./routers/user.router");
 const bookRouter  = require("./routers/book.router");
 const trancationRouter = require("./routers/transcaction.router");
 const app = express();
+app.use(express.static('public'))
 app.set('view engine', 'pug')
 app.set('views', './views')
 const PORT = 9000;
