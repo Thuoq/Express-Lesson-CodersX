@@ -1,12 +1,16 @@
-h1 This is All Transcations 
+extends ../layout
 
-a(href="/trancation/create") Create New Transcation
+block content
+	h1 This is All Transcations 
 
-ul
-	each el in trancations 
-		li
-			span= el.name + " mượn quyển sách " + el.title
-				span &nbsp
-				span &nbsp  
-				span &nbsp
-			a(href="/trancation/" + el.idTranscation+"/compelete") Compelete
+	a(href="/trancation/create") Create New Transcation
+
+	ul
+		each el in trancations 
+			li
+				span= el.name + " mượn quyển sách " + el.title
+					span &nbsp
+					span &nbsp  
+					span &nbsp
+				a(href="/trancation/" + el.idTranscation+"/compelete") Compelete
+

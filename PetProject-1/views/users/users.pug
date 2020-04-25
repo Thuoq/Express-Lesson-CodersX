@@ -1,7 +1,8 @@
-h1 This is All User display
+extends ../layout
 
-a(href="/users/create") Create New User
-
+block content
+	h1 This is All User display
+	a(href="/users/create",class="btn btn-primary mb-3") Create New User
 	ul
 		each user in users
 			li 
@@ -9,15 +10,16 @@ a(href="/users/create") Create New User
 				span &nbsp
 				span &nbsp
 				span &nbsp
-				a(href="/users/" + user.idUser) View User
+				a(href="/users/" + user.idUser,class="btn btn-primary") View User
 				span &nbsp
 				span &nbsp  
 				span &nbsp
-				a(href="/users/" + user.idUser + "/edit") Edit User
+				a(href="/users/" + user.idUser + "/edit",class="btn btn-primary") Edit User
 				span &nbsp
 				span &nbsp
 				span &nbsp  
-				a(href="/users/" + user.idUser + "/delete") Delete User
+				a(href="/users/" + user.idUser + "/delete",class="btn btn-primary") Delete User
+
 
 
 

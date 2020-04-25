@@ -47,12 +47,6 @@ exports.userEditPost = (req,res) => {
 }
 exports.userDelete = (req,res) => {
 	const idUser = req.params.id * 1 ; 
-	let userDelete= {};
-	for(let i = 0 ; i < storeUsers.length ; i ++) {
-		if(idUser === storeUsers[i].idUser) {
-			bookDelete = storeUsers[i]
-		} 
-	}
-	db.get("users").remove(userDelete).write();
-	res.redirect("/users")
+	db.get("users").remove({idUser: idUser}).write();
+	res.redirect("/")
 }

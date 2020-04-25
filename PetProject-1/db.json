@@ -14,11 +14,7 @@
   "users": [
     {
       "idUser": 1,
-      "name": "thuong"
-    },
-    {
-      "idUser": 2,
-      "name": "Hien"
+      "name": "Lan"
     }
   ],
   "trancations": []
