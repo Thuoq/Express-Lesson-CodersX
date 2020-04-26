@@ -47,6 +47,14 @@ exports.trancationCreatePost = (req,res) => {
 }
 exports.transcactionCompelete = (req,res) => {
 	let idCompelete = req.params.id * 1;
+	const trancations = [].concat(storeTranscaction);
+	if(idCompelete > storeTranscaction.length) {
+		res.render("trancations/trancation",{
+			trancations,
+			id: idCompelete
+		})	
+		return;
+	}
 	db.get("trancations")
 	  .remove({idTranscation: idCompelete})
 	  .write();
