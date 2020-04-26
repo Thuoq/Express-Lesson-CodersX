@@ -1,6 +1,5 @@
 const db = require("../db");
 const storeUsers = db.get("users").value();
-
 exports.indexUser = (req,res) => {
 	let currentUsers = [].concat(storeUsers)
 	res.render("users/users",{
@@ -16,10 +15,6 @@ exports.userCreatePost = (req,res) => {
 	let newIdUser = storeUsers.length +1;
 	let query = {...req.body};
 	const newUser = Object.assign({},{idUser: newIdUser},query);
-	if(query.name.length > 30 ) {
-		res.render("users/createUser",query);
-		return;
-	}
 	db.get("users").push(newUser).write();
 	res.redirect("/users")
 }
