@@ -5,12 +5,13 @@ block content
 
 	a(href="/trancation/create") Create New Transcation
 
-	ul
+	table.table
+		tr
+			th Trancation
+			th Compelete
 		each el in trancations 
-			li
-				span= el.name + " mượn quyển sách " + el.title
-					span &nbsp
-					span &nbsp  
-					span &nbsp
-				a(href="/trancation/" + el.idTranscation+"/compelete") Compelete
+			tr
+				td= el.name + " mượn quyển sách " + el.title
+				td
+					a(href="/trancation/" + el.idTranscation+"/compelete",class="btn btn-primary") Compelete
 

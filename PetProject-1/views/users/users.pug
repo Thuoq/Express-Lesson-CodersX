@@ -3,22 +3,22 @@ extends ../layout
 block content
 	h1 This is All User display
 	a(href="/users/create",class="btn btn-primary mb-3") Create New User
-	ul
+
+	table.table
+		tr
+			th Name
+			th View User
+			th Edit
+			th Delete
 		each user in users
-			li 
-				span= user.name
-				span &nbsp
-				span &nbsp
-				span &nbsp
-				a(href="/users/" + user.idUser,class="btn btn-primary") View User
-				span &nbsp
-				span &nbsp  
-				span &nbsp
-				a(href="/users/" + user.idUser + "/edit",class="btn btn-primary") Edit User
-				span &nbsp
-				span &nbsp
-				span &nbsp  
-				a(href="/users/" + user.idUser + "/delete",class="btn btn-primary") Delete User
+			tr
+				td= user.name
+				td
+					a(href="/users/" + user.idUser,class="btn btn-primary") View User
+				td
+					a(href="/users/" + user.idUser + "/edit",class="btn btn-primary") Edit User
+				td
+					a(href="/users/" + user.idUser + "/delete",class="btn btn-primary") Delete User
 
 
 

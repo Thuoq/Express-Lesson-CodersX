@@ -6,20 +6,20 @@ block content
 	form(action="/search")
 		input(type="text",name="name",class="mr-3 form")
 		btn(class="btn btn-primary") Search
-	ul
+	table.table
+		tr
+			th Book Title
+			th Book Description
+			th View Book
+			th Edit Title
+			th Delete Book
 		each book in books
-			li(class="mb-3")
-				span= book.title
-				span &nbsp
-				span &nbsp
-				span &nbsp
-				span= book.detail
-				span &nbsp
-				span &nbsp
-				a(href="/books/" + book.idBook,class="btn btn-primary mr-3") View Book
-				span &nbsp
-				span &nbsp  
-				a(href="/books/"+ book.idBook + "/delete",class="btn btn-primary mr-3") Delete Book
-				span &nbsp
-				span &nbsp
-				a(href="/books/"+ book.idBook +"/edit",class="btn btn-primary mr-3") Edit Title Book
+			tr
+				td= book.title
+				td= book.detail
+				td
+					a(href="/books/" + book.idBook,class="btn btn-primary ") View Book
+				td
+					a(href="/books/"+ book.idBook +"/edit",class="btn btn-primary ") Edit Title Book
+				td
+					a(href="/books/"+ book.idBook + "/delete",class="btn btn-primary ") Delete Book
