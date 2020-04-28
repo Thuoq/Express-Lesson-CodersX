@@ -1,3 +1,4 @@
+const md5 = require("md5")
 const db = require("../db");
 const storeUsers = db.get("users").value();
 exports.indexUser = (req,res) => {
@@ -14,6 +15,7 @@ exports.userCreate =(req,res) => {
 exports.userCreatePost = (req,res) => {
 	let newIdUser = storeUsers.length +1;
 	let query = {...req.body};
+	query.password = md5(query.password)
 	const newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false});
 	db.get("users").push(newUser).write();
 	res.redirect("/users")

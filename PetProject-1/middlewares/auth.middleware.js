@@ -1,3 +1,4 @@
+const md5 = require("md5");
 const db = require("../db");
 
 exports.requiredAuth = (req,res,next) => {
@@ -15,7 +16,7 @@ exports.requiredAuth = (req,res,next) => {
 
 exports.verifyUser = (req,res,next) => {
 	let{email,name,password} = req.body;
-	letlet userName = db.get("users").find({email: email}).value();
+	let userName = db.get("users").find({email: email}).value();
 	if(!userName) {
 		res.render("authentication/signin",{
 			errors: [
@@ -32,7 +33,8 @@ exports.verifyUser = (req,res,next) => {
 		})
 		return;
 	}
-	if(userName.password !== password){
+	const hashPassword = md5(password)
+	if(userName.password !== hashPassword){
 		res.render("authentication/signin",{
 			errors: [
 				"Wrong password !"
@@ -50,6 +52,9 @@ exports.isAdmin = (req,res,next) => {
 	const trancationUser = db.get("trancations").filter({name: name}).value();
 	if(!isAdmin) {
 		res.redirect("/trancation");
+		res.render("trancations/trancation",{
+			trancations: trancationUser
+		})
 		return;
 	}
 	next();

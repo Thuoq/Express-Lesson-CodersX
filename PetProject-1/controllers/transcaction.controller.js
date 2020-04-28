@@ -5,9 +5,18 @@ const storeUsers = db.get("users").value();
 
 exports.indexTrancation  = (req,res) => {
 	const trancations = storeTranscaction;
+	const [userAdmin]  = db.get("users").filter({idUser: req.cookies.userId * 1}).value();
+	if(!userAdmin.isAdmin) {
+		let trancationUser = db.get("trancations").filter({name:userAdmin.name}).value()
+		res.render("trancations/trancation",{
+			trancations: trancationUser,
+		})
+		return;
+	}
 	res.render("trancations/trancation",{
 		trancations,
 	})
+	
 }
 
 exports.trancationCreate = (req,res) => {
@@ -44,7 +53,6 @@ exports.trancationCreatePost = (req,res) => {
 	let newTrancation = Object.assign({},{idTranscation: idTranscation},bookTrancations,userTrancations);
 	db.get("trancations").push(newTrancation).write();
 	res.redirect("/trancation");
-
 }
 
 exports.transcactionCompelete = (req,res) => {
