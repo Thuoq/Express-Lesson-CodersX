@@ -1,5 +1,7 @@
-const md5 = require("md5");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const db = require("../db");
+
 
 exports.requiredAuth = (req,res,next) => {
 	if(!req.cookies.userId) {
@@ -14,7 +16,7 @@ exports.requiredAuth = (req,res,next) => {
 	next();
 }
 
-exports.verifyUser = (req,res,next) => {
+exports.verifyUser = async (req,res,next) => {
 	let{email,name,password} = req.body;
 	let userName = db.get("users").find({email: email}).value();
 	if(!userName) {
@@ -33,17 +35,20 @@ exports.verifyUser = (req,res,next) => {
 		})
 		return;
 	}
-	const hashPassword = md5(password)
-	if(userName.password !== hashPassword){
-		res.render("authentication/signin",{
-			errors: [
-				"Wrong password !"
-			]
-		})
-		return;
-	} 
-	res.cookie('userId', userName.idUser)
-	next();
+	let hash = userName.password;
+	await bcrypt.compare(password, hash, function(err, result) {
+   			if(result) {
+   				res.cookie('userId', userName.idUser)
+   				next();
+   			}else{
+   				res.render("authentication/signin",{
+					errors: [
+						"Wrong password !"
+					]
+				})
+				return;
+   			}
+	});
 }
 
 exports.isAdmin = (req,res,next) => {
@@ -55,7 +60,7 @@ exports.isAdmin = (req,res,next) => {
 		res.render("trancations/trancation",{
 			trancations: trancationUser
 		})
-		return;
+		return; 
 	}
 	next();
 }

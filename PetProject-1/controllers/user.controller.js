@@ -1,24 +1,29 @@
-const md5 = require("md5")
+const md5 = require("md5");
+const bcrypt = require('bcrypt');
 const db = require("../db");
+const saltRounds = 10;
 const storeUsers = db.get("users").value();
 exports.indexUser = (req,res) => {
 	let currentUsers = storeUsers
 	res.render("users/users",{
 		users : currentUsers
-	})
+	}) 
 }
 
 exports.userCreate =(req,res) => {
 	res.render("users/createUser")
 }
 
-exports.userCreatePost = (req,res) => {
+exports.userCreatePost = async (req,res) => {
 	let newIdUser = storeUsers.length +1;
 	let query = {...req.body};
-	query.password = md5(query.password)
-	const newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false});
-	db.get("users").push(newUser).write();
-	res.redirect("/users")
+	await bcrypt.hash(query.password, saltRounds, function(err, hash) {
+		query.password = hash;
+   	 	let newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false});
+		db.get("users").push(newUser).write();
+		res.redirect("/users");
+	});
+	
 }
 
 
