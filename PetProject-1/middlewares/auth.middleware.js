@@ -37,17 +37,23 @@ exports.verifyUser = async (req,res,next) => {
 	}
 	let hash = userName.password;
 	await bcrypt.compare(password, hash, function(err, result) {
-   			if(result) {
-   				res.cookie('userId', userName.idUser)
-   				next();
-   			}else{
-   				res.render("authentication/signin",{
-					errors: [
-						"Wrong password !"
-					]
-				})
-				return;
-   			}
+			let errors = ["Wrong password !"];
+			let count = 1;
+			if(count >=4) {
+				result = false;
+				errors[0] = "You have entered too many times";
+			}else{
+				   if(result) {
+	   				res.cookie('userId', userName.idUser)
+	   				next();
+	   			}else{
+	   				count ++;
+	   				res.render("authentication/signin",{
+						errors,
+					})
+					return;
+	   			}
+			}	
 	});
 }
 
