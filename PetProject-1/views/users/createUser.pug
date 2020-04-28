@@ -5,8 +5,13 @@ block content
 	if name 
 		.alert.alert-danger= "Name Too Long Please Type Again"
 	form(action="/users/create",method="POST")
-		input(type="text",name="name", value = name ? name: "",placeholder="Type Nick name User")
+		input(type="text",name="name", value = name ? name: "",placeholder="Type Nick name User",required)
 		br
-		span &nbsp;
+		br
+		input(type="email",name="email", value = email ? email: "",placeholder="Type Nick email",required)
+		br
+		br
+		input(type="password",name="password", value = password ? password: "",placeholder="Type Nick password",required)
+		br
 		br
 		button(class="btn btn-primary") Add User

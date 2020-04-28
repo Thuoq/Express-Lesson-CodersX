@@ -2,7 +2,8 @@ const db = require("../db");
 const storeBooks = db.get("books").value();
 
 exports.indexBook = (req,res)=> {
-	const books = [].concat(storeBooks)
+	const books = storeBooks;
+	console.log(req.cookies.userId)
 	res.render("books/books",{
 		books,
 	})

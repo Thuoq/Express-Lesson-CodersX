@@ -9,16 +9,46 @@
       "title": "React",
       "detail": "Yihua",
       "idBook": 2
+    },
+    {
+      "title": "Next.JS",
+      "detail": "Edition",
+      "idBook": 3
+    },
+    {
+      "title": "AI & Data Science",
+      "detail": "Yihua & Andriew",
+      "idBook": 4
     }
   ],
   "users": [
     {
       "idUser": 1,
-      "name": "Lan"
+      "name": "thuong",
+      "password": "123456",
+      "email": "a36311@thanglong.edu.vn",
+      "isAdmin": true
     },
     {
       "idUser": 2,
-      "name": "thuong dep trai vai lo"
+      "name": "giang",
+      "password": "123456",
+      "email": "infor.cownut.vn",
+      "isAdmin": false
+    },
+    {
+      "idUser": 3,
+      "name": "cownut",
+      "password": "123456",
+      "email": "thuonghamno3xz@gmail.com",
+      "isAdmin": false
+    },
+    {
+      "idUser": 4,
+      "name": "lonq",
+      "email": "longga@edu.vn",
+      "password": "123456",
+      "isAdmin": false
     }
   ],
   "trancations": [
@@ -27,8 +57,49 @@
       "title": "NODE JS",
       "detail": "Master",
       "idBook": 1,
-      "idUser": 1,
-      "name": "Lan"
+      "idUser": 3,
+      "name": "cownut"
+    },
+    {
+      "idTranscation": 2,
+      "title": "React",
+      "detail": "Yihua",
+      "idBook": 2,
+      "idUser": 3,
+      "name": "cownut"
+    },
+    {
+      "idTranscation": 3,
+      "title": "AI & Data Science",
+      "detail": "Yihua & Andriew",
+      "idBook": 4,
+      "idUser": 3,
+      "name": "cownut",
+      "password": "123456",
+      "email": "thuonghamno3xz@gmail.com",
+      "isAdmin": false
+    },
+    {
+      "idTranscation": 4,
+      "title": "AI & Data Science",
+      "detail": "Yihua & Andriew",
+      "idBook": 4,
+      "idUser": 2,
+      "name": "giang",
+      "password": "123456",
+      "email": "infor.cownut.vn",
+      "isAdmin": false
+    },
+    {
+      "idTranscation": 5,
+      "title": "React",
+      "detail": "Yihua",
+      "idBook": 2,
+      "idUser": 4,
+      "name": "lonq",
+      "email": "longga@edu.vn",
+      "password": "123456",
+      "isAdmin": false
     }
   ]
 }

@@ -1,7 +1,7 @@
 const db = require("../db");
 const storeUsers = db.get("users").value();
 exports.indexUser = (req,res) => {
-	let currentUsers = [].concat(storeUsers)
+	let currentUsers = storeUsers
 	res.render("users/users",{
 		users : currentUsers
 	})
@@ -14,7 +14,7 @@ exports.userCreate =(req,res) => {
 exports.userCreatePost = (req,res) => {
 	let newIdUser = storeUsers.length +1;
 	let query = {...req.body};
-	const newUser = Object.assign({},{idUser: newIdUser},query);
+	const newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false});
 	db.get("users").push(newUser).write();
 	res.redirect("/users")
 }
@@ -44,6 +44,7 @@ exports.userEditPost = (req,res) => {
 	  .write()
 	res.redirect("/users")
 }
+
 exports.userDelete = (req,res) => {
 	const idUser = req.params.id * 1 ; 
 	db.get("users").remove({idUser: idUser}).write();

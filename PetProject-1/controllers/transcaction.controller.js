@@ -4,18 +4,19 @@ const storeBooks = db.get("books").value();
 const storeUsers = db.get("users").value();
 
 exports.indexTrancation  = (req,res) => {
-	const trancations = [].concat(storeTranscaction);
+	const trancations = storeTranscaction;
 	res.render("trancations/trancation",{
 		trancations,
 	})
 }
-exports.trancationCreate = (req,res) => {
 
+exports.trancationCreate = (req,res) => {
 	res.render("trancations/createTrancation",{
 		users:storeUsers,
 		books:storeBooks
 	})
 }
+
 function takeInforTrancation(book,user) {
 	let newInforTrancation = {};
 	if(book) {
@@ -36,18 +37,19 @@ function takeInforTrancation(book,user) {
 }
 
 exports.trancationCreatePost = (req,res) => {
-	const {user,book} = {...req.body};
-	const userTrancations = takeInforTrancation(null,user);
-	const bookTrancations =  takeInforTrancation(book,null)
-	const idTranscation = storeTranscaction.length + 1;
-	const newTrancation = Object.assign({},{idTranscation: idTranscation},bookTrancations,userTrancations);
+	let {user,book} = {...req.body};
+	let userTrancations = takeInforTrancation(null,user);
+	let bookTrancations =  takeInforTrancation(book,null)
+	let idTranscation = storeTranscaction.length + 1;
+	let newTrancation = Object.assign({},{idTranscation: idTranscation},bookTrancations,userTrancations);
 	db.get("trancations").push(newTrancation).write();
-	res.redirect("/");
+	res.redirect("/trancation");
 
 }
+
 exports.transcactionCompelete = (req,res) => {
 	let idCompelete = req.params.id * 1;
-	const trancations = [].concat(storeTranscaction);
+	const trancations = storeTranscaction;
 	if(idCompelete > storeTranscaction.length) {
 		res.render("trancations/trancation",{
 			trancations,
