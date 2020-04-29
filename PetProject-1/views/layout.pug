@@ -7,11 +7,17 @@ html
 			a(class="navbar-brand nav-item nav-link active",href="/") Manager Library
 			button(class="navbar-toggler",type="button",data-toggle="collapse", data-target="#navbarNavAltMarkup",aria-controls="navbarNavAltMarkup" aria-expanded="false",aria-label="Toggle navigation")
 				span(class="navbar-toggler-icon")
-			div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
-				div(class="navbar-nav")
-					a(href="/trancation",class="nav-item nav-link text-white") Trancation
-					a(href="/books",class="nav-item nav-link text-white") Books
-					a(href="/users",class="nav-item nav-link text-white") Users
+			div(class="collapse navbar-collapse" id="navbarText")
+				ul.navbar-nav.mr-auto
+					li.nav-item
+						a(href="/trancation",class="nav-link text-white") Trancation
+					li.nav-item
+						a(href="/books",class="nav-link text-white") Books
+					li.nav-item
+						a(href="/users",class="nav-item nav-link text-white") Users
+		
+				if user
+					span.navbar-text.text-white.text-capitalize= "Hello " + user
 					a(href="/auth/signout",class="nav-item nav-link text-white") Logout
 		div(class="container")
 			block content  

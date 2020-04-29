@@ -5,9 +5,13 @@ exports.authSignIn  = (req,res) => {
 exports.authSignInPost = (req,res) => {
 	const{email,name,password} = req.body;
 	const trancationUser = db.get("trancations").filter({name: name}).value();
+
+	res.locals.user = name;
+	console.log(res.locals.user)
 	res.render("trancations/trancation",{
-		trancations: trancationUser
+		trancations: trancationUser,
 	})
+
 }
 
 exports.authSignOut = (req,res) => {

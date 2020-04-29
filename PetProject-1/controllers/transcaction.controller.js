@@ -5,7 +5,7 @@ const storeUsers = db.get("users").value();
 
 exports.indexTrancation  = (req,res) => {
 	const trancations = storeTranscaction;
-	const [userAdmin]  = db.get("users").filter({idUser: req.cookies.userId * 1}).value();
+	const [userAdmin]  = db.get("users").filter({idUser: req.signedCookies.userId * 1}).value();
 	if(!userAdmin.isAdmin) {
 		let trancationUser = db.get("trancations").filter({name:userAdmin.name}).value()
 		res.render("trancations/trancation",{

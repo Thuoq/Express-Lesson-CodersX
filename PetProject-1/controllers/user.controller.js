@@ -1,4 +1,3 @@
-const md5 = require("md5");
 const bcrypt = require('bcrypt');
 const db = require("../db");
 const saltRounds = 10;

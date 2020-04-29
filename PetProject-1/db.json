@@ -100,6 +100,39 @@
       "email": "longga@edu.vn",
       "password": "e10adc3949ba59abbe56e057f20f883e",
       "isAdmin": false
+    },
+    {
+      "idTranscation": 6,
+      "title": "NODE JS",
+      "detail": "Master",
+      "idBook": 1,
+      "idUser": 2,
+      "name": "hien",
+      "email": "hiensambi@bka.edu.vn",
+      "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
+      "isAdmin": false
+    },
+    {
+      "idTranscation": 7,
+      "title": "AI & Data Science",
+      "detail": "Yihua & Andriew",
+      "idBook": 4,
+      "idUser": 2,
+      "name": "hien",
+      "email": "hiensambi@bka.edu.vn",
+      "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
+      "isAdmin": false
+    },
+    {
+      "idTranscation": 8,
+      "title": "Next.JS",
+      "detail": "Edition",
+      "idBook": 3,
+      "idUser": 2,
+      "name": "hien",
+      "email": "hiensambi@bka.edu.vn",
+      "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
+      "isAdmin": false
     }
   ]
 }

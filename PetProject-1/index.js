@@ -8,7 +8,7 @@ const authRouter = require("./routers/auth.router");
 const app = express();
 const middlewareUser = require("./middlewares/auth.middleware");
 app.use(express.static('public'));
-app.use(cookieParser())
+app.use(cookieParser("T2708H2010"))
 app.set('view engine', 'pug')
 app.set('views', './views')
 const PORT = 9000;

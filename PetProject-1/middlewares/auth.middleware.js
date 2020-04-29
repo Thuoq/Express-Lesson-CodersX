@@ -4,15 +4,17 @@ const db = require("../db");
 
 
 exports.requiredAuth = (req,res,next) => {
-	if(!req.cookies.userId) {
+	if(!req.signedCookies.userId) {
 		res.redirect("/auth");
 		return;
 	}
-	let idUser = db.get("users").find({idUser: req.cookies.userId * 1}).value();
+	let idUser = db.get("users").find({
+		idUser: req.signedCookies.userId * 1}).value();
 	if(!idUser){
 		res.redirect("/auth");
 		return;
 	}
+	res.locals.user = idUser;
 	next();
 }
 
@@ -42,9 +44,15 @@ exports.verifyUser = async (req,res,next) => {
 			if(count >=4) {
 				result = false;
 				errors[0] = "You have entered too many times";
+				res.render("authentication/signin",{
+						errors,
+				})
+				return;
 			}else{
 				   if(result) {
-	   				res.cookie('userId', userName.idUser)
+	   				res.cookie('userId', userName.idUser,{
+	   					signed:true
+	   				})
 	   				next();
 	   			}else{
 	   				count ++;
@@ -58,9 +66,11 @@ exports.verifyUser = async (req,res,next) => {
 }
 
 exports.isAdmin = (req,res,next) => {
-	let idUser  = req.cookies.userId *1;
+	let idUser  = req.signedCookies.userId *1;
+	console.log(idUser); 
 	let {name,isAdmin} = db.get("users").find({idUser: idUser}).value();
 	const trancationUser = db.get("trancations").filter({name: name}).value();
+	console.log(isAdmin);
 	if(!isAdmin) {
 		res.redirect("/trancation");
 		res.render("trancations/trancation",{
