@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const userRouter = require("./routers/user.router");
@@ -8,7 +9,7 @@ const authRouter = require("./routers/auth.router");
 const app = express();
 const middlewareUser = require("./middlewares/auth.middleware");
 app.use(express.static('public'));
-app.use(cookieParser("T2708H2010"))
+app.use(cookieParser(process.env.SECRET_KEY))
 app.set('view engine', 'pug')
 app.set('views', './views')
 const PORT = 9000;

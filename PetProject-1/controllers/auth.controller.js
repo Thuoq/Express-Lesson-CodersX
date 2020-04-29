@@ -7,7 +7,6 @@ exports.authSignInPost = (req,res) => {
 	const trancationUser = db.get("trancations").filter({name: name}).value();
 
 	res.locals.user = name;
-	console.log(res.locals.user)
 	res.render("trancations/trancation",{
 		trancations: trancationUser,
 	})

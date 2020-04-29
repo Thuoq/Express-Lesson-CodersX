@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const db = require("../db");
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 exports.requiredAuth = (req,res,next) => {
@@ -43,6 +45,14 @@ exports.verifyUser = async (req,res,next) => {
 			let count = 1;
 			if(count >=4) {
 				result = false;
+				const msg = {
+				  to: `${email}`,
+				  from: `${process.env.MY_EMAIL_HOST}`,
+				  subject: 'SECURITY',
+				  text: 'Some one try hack your password',
+				  html: '<strong>BE CAREfully</strong>',
+				};
+				sgMail.send(msg);
 				errors[0] = "You have entered too many times";
 				res.render("authentication/signin",{
 						errors,
