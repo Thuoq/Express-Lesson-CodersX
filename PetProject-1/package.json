@@ -4,7 +4,7 @@
   "description": "Pet-Project-1-Of-Express-CodersX",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon --inspect index.js"
   },
   "author": "COWNUT",
   "license": "ISC",

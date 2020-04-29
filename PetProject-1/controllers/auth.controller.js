@@ -5,7 +5,8 @@ exports.authSignIn  = (req,res) => {
 exports.authSignInPost = (req,res) => {
 	const{email,name,password} = req.body;
 	const trancationUser = db.get("trancations").filter({name: name}).value();
-
+	let userName = db.get("users").find({email: email}).value();
+	db.get("users").set(`users[${userName.idUser}-1].isPassword`,0)
 	res.locals.user = name;
 	res.render("trancations/trancation",{
 		trancations: trancationUser,

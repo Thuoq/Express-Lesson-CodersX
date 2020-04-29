@@ -27,28 +27,40 @@
       "name": "thuong",
       "email": "thuonghamno3xz@gmail.com",
       "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
-      "isAdmin": true
+      "isAdmin": true,
+      "isPassword": 0
     },
     {
       "idUser": 2,
       "name": "hien",
       "email": "hiensambi@bka.edu.vn",
       "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
-      "isAdmin": false
+      "isAdmin": false,
+      "isPassword": 0
     },
     {
       "idUser": 3,
       "name": "giang",
       "email": "giang@bka.com",
       "password": "$2b$10$FpYINNdWH2dWEanuAlyp6uL2U.FjYakqzb7UDEo3u4AAzqTYKamFy",
-      "isAdmin": false
+      "isAdmin": false,
+      "isPassword": 0
     },
     {
       "idUser": 4,
       "name": "lonq thuong",
       "email": "longthuong@thanglong.edu.vn",
       "password": "$2b$10$Gbg.myYSuQ62.NpWmh8fceNPY9.zBtmhziNm.ItdwmZKrIzRk1tGW",
-      "isAdmin": false
+      "isAdmin": false,
+      "isPassword": 0
+    },
+    {
+      "idUser": 5,
+      "name": "long",
+      "email": "a36311@thanglong.edu.vn",
+      "password": "$$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
+      "isAdmin": false,
+      "isPassword": 4
     }
   ],
   "trancations": [

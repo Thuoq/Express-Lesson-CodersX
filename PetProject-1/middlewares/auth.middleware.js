@@ -42,7 +42,7 @@ exports.verifyUser = async (req,res,next) => {
 	let hash = userName.password;
 	await bcrypt.compare(password, hash, function(err, result) {
 			let errors = ["Wrong password !"];
-			let count = 1;
+			let count = userName.isPassword
 			if(count >=4) {
 				result = false;
 				const msg = {
@@ -65,7 +65,7 @@ exports.verifyUser = async (req,res,next) => {
 	   				})
 	   				next();
 	   			}else{
-	   				count ++;
+	   				db.update(`users[${userName.idUser -1}].isPassword`, n => n + 1 ).write();
 	   				res.render("authentication/signin",{
 						errors,
 					})
