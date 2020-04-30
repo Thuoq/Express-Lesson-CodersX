@@ -18,7 +18,7 @@ exports.userCreatePost = async (req,res) => {
 	let query = {...req.body};
 	await bcrypt.hash(query.password, saltRounds, function(err, hash) {
 		query.password = hash;
-   	 	let newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false});
+   	 	let newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false,isPassword:0});
 		db.get("users").push(newUser).write();
 		res.redirect("/users");
 	});

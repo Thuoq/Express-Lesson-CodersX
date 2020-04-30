@@ -26,7 +26,6 @@ app.
 app.
 	use("/books",
 	middlewareUser.requiredAuth,
-	middlewareUser.isAdmin,
 	bookRouter);
 app.
 	use("/trancation",

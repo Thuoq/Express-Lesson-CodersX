@@ -2,24 +2,31 @@ extends ../layout
 
 block content
 	h1 Welcome to Library Books
-	a(href="/books/create") Create New Books 
-	form(action="/search")
+	if isAdmin
+		a(href="/books/create") Create New Books 
+	form(action="/search",class="float-right mb-3 clearfix")
 		input(type="text",name="name",class="mr-3 form")
 		btn(class="btn btn-primary") Search
-	table.table
-		tr
-			th Book Title
-			th Book Description
-			th View Book
-			th Edit Title
-			th Delete Book
+	
+	.row(style="margin-top:10rem")
 		each book in books
-			tr
-				td= book.title
-				td= book.detail
-				td
+			.col-md-4.col-sm-6
+				.card(style="width:18rem;height:18rem")
+					img(class="card-img-top",src=book.image,alt="Card image cap")
+				.card-body
+					h5(class="card-title")= book.books
+					p(class="card-text")= book.title
 					a(href="/books/" + book.idBook,class="btn btn-primary ") View Book
-				td
-					a(href="/books/"+ book.idBook +"/edit",class="btn btn-primary ") Edit Title Book
-				td
-					a(href="/books/"+ book.idBook + "/delete",class="btn btn-primary ") Delete Book
+					if isAdmin
+						a(href="/books/"+ book.idBook +"/edit",class="btn btn-primary ") Edit Title Book
+						a(href="/books/"+ book.idBook + "/delete",class="btn btn-primary ") Delete Book
+	nav(aria-label="...")
+		ul(class="pagination pagination-lg float-right")
+			- var n = 1;
+			while n <  (14)
+				if page[0] === n 
+					li(class= "page-item active")
+						a(class="page-link ",href="?page=" + n,tabindex="-1",method="POST")= n++
+				else
+					li(class= "page-item")
+						a(class="page-link ",href="?page=" + n,tabindex="-1",method="POST")= n++

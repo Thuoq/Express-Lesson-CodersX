@@ -1,24 +1,704 @@
 {
   "books": [
     {
-      "title": "NODE JS",
-      "detail": "Master",
-      "idBook": 1
+      "idBook": 1,
+      "books": "Eggplant - Regular",
+      "image": "http://dummyimage.com/247x137.jpg/ff4444/ffffff",
+      "title": "Calling Bulldog Drummond",
+      "detail": "Mariellen Alejo"
     },
     {
-      "title": "React",
-      "detail": "Yihua",
-      "idBook": 2
+      "idBook": 2,
+      "books": "Kirsch - Schloss",
+      "image": "http://dummyimage.com/149x227.bmp/ff4444/ffffff",
+      "title": "Big Man Japan (Dai-Nihonjin)",
+      "detail": "Carleen Unstead"
     },
     {
-      "title": "Next.JS",
-      "detail": "Edition",
-      "idBook": 3
+      "idBook": 3,
+      "books": "Juice - Lime",
+      "image": "http://dummyimage.com/242x108.png/cc0000/ffffff",
+      "title": "Bigger Than Life",
+      "detail": "Blondelle Bampton"
     },
     {
-      "title": "AI & Data Science",
-      "detail": "Yihua & Andriew",
-      "idBook": 4
+      "idBook": 4,
+      "books": "Browning Caramel Glace",
+      "image": "http://dummyimage.com/233x248.jpg/ff4444/ffffff",
+      "title": "Come Sweet Death (Komm, süsser Tod)",
+      "detail": "Glynn Hutten"
+    },
+    {
+      "idBook": 5,
+      "books": "Salmon - Atlantic, Skin On",
+      "image": "http://dummyimage.com/158x195.jpg/5fa2dd/ffffff",
+      "title": "Strapped",
+      "detail": "Grazia Peplow"
+    },
+    {
+      "idBook": 6,
+      "books": "Oil - Shortening,liqud, Fry",
+      "image": "http://dummyimage.com/229x121.png/ff4444/ffffff",
+      "title": "Everybody's Fine (Stanno tutti bene)",
+      "detail": "Olga Lawrenson"
+    },
+    {
+      "idBook": 7,
+      "books": "Pork Ham Prager",
+      "image": "http://dummyimage.com/242x126.jpg/dddddd/000000",
+      "title": "After Hours",
+      "detail": "Jorgan Matisoff"
+    },
+    {
+      "idBook": 8,
+      "books": "Soup - Beef, Base Mix",
+      "image": "http://dummyimage.com/118x114.bmp/5fa2dd/ffffff",
+      "title": "Sacrificio: Who Betrayed Che Guevara",
+      "detail": "Frankie Gutans"
+    },
+    {
+      "idBook": 9,
+      "books": "Ecolab - Power Fusion",
+      "image": "http://dummyimage.com/206x205.jpg/dddddd/000000",
+      "title": "Disclosure",
+      "detail": "Allegra Watkiss"
+    },
+    {
+      "idBook": 10,
+      "books": "Tart - Butter Plain Squares",
+      "image": "http://dummyimage.com/164x198.png/ff4444/ffffff",
+      "title": "Arthur",
+      "detail": "Lindsay Godney"
+    },
+    {
+      "idBook": 11,
+      "books": "Fond - Chocolate",
+      "image": "http://dummyimage.com/228x236.bmp/ff4444/ffffff",
+      "title": "Two Kilers (Kilerów 2-óch)",
+      "detail": "Nikki Archbell"
+    },
+    {
+      "idBook": 12,
+      "books": "Beef - Tenderloin",
+      "image": "http://dummyimage.com/147x198.png/ff4444/ffffff",
+      "title": "Foreign Student",
+      "detail": "Dacy Dovidaitis"
+    },
+    {
+      "idBook": 13,
+      "books": "Beef - Sushi Flat Iron Steak",
+      "image": "http://dummyimage.com/187x160.jpg/ff4444/ffffff",
+      "title": "Let Fury Have the Hour",
+      "detail": "Kath Ternott"
+    },
+    {
+      "idBook": 14,
+      "books": "Pepper Squash",
+      "image": "http://dummyimage.com/111x143.jpg/5fa2dd/ffffff",
+      "title": "Turandot Project, The",
+      "detail": "Austen Farnish"
+    },
+    {
+      "idBook": 15,
+      "books": "Wine - White, Riesling, Henry Of",
+      "image": "http://dummyimage.com/206x123.png/ff4444/ffffff",
+      "title": "Georg",
+      "detail": "Pam Bussy"
+    },
+    {
+      "idBook": 16,
+      "books": "Lid - High Heat, Super Clear",
+      "image": "http://dummyimage.com/249x139.jpg/ff4444/ffffff",
+      "title": "Popeye",
+      "detail": "Gwendolin Crosio"
+    },
+    {
+      "idBook": 17,
+      "books": "Myers Planters Punch",
+      "image": "http://dummyimage.com/182x139.bmp/ff4444/ffffff",
+      "title": "Eagle, The",
+      "detail": "Arie Wiggam"
+    },
+    {
+      "idBook": 18,
+      "books": "Vol Au Vents",
+      "image": "http://dummyimage.com/115x156.jpg/5fa2dd/ffffff",
+      "title": "Hot Shots!",
+      "detail": "Dex Sherbourne"
+    },
+    {
+      "idBook": 19,
+      "books": "Marjoram - Dried, Rubbed",
+      "image": "http://dummyimage.com/184x160.jpg/5fa2dd/ffffff",
+      "title": "Crossing the Bridge",
+      "detail": "Wilburt Manginot"
+    },
+    {
+      "idBook": 20,
+      "books": "Ham Black Forest",
+      "image": "http://dummyimage.com/124x136.bmp/5fa2dd/ffffff",
+      "title": "Arise, My Love",
+      "detail": "Yvette Pettigree"
+    },
+    {
+      "idBook": 21,
+      "books": "Club Soda - Schweppes, 355 Ml",
+      "image": "http://dummyimage.com/174x223.bmp/ff4444/ffffff",
+      "title": "Sabrina",
+      "detail": "Doe Harrhy"
+    },
+    {
+      "idBook": 22,
+      "books": "Juice - V8, Tomato",
+      "image": "http://dummyimage.com/105x235.bmp/cc0000/ffffff",
+      "title": "Sea of Love",
+      "detail": "Dev Egell"
+    },
+    {
+      "idBook": 23,
+      "books": "Ham - Cooked",
+      "image": "http://dummyimage.com/119x168.png/dddddd/000000",
+      "title": "Rapado",
+      "detail": "Kassie Able"
+    },
+    {
+      "idBook": 24,
+      "books": "Butter Sweet",
+      "image": "http://dummyimage.com/158x197.jpg/dddddd/000000",
+      "title": "Raven, The",
+      "detail": "Maxie Behrens"
+    },
+    {
+      "idBook": 25,
+      "books": "Samosa - Veg",
+      "image": "http://dummyimage.com/121x230.jpg/cc0000/ffffff",
+      "title": "Accidental Husband, The",
+      "detail": "Izaak Verson"
+    },
+    {
+      "idBook": 26,
+      "books": "Gatorade - Lemon Lime",
+      "image": "http://dummyimage.com/112x244.jpg/ff4444/ffffff",
+      "title": "Libre échange",
+      "detail": "Latisha Goymer"
+    },
+    {
+      "idBook": 27,
+      "books": "Cheese - Comtomme",
+      "image": "http://dummyimage.com/106x136.jpg/cc0000/ffffff",
+      "title": "Bright Lights, Big City",
+      "detail": "Zea Negus"
+    },
+    {
+      "idBook": 28,
+      "books": "Rice - Aborio",
+      "image": "http://dummyimage.com/215x241.png/ff4444/ffffff",
+      "title": "Fear City: A Family-Style Comedy (La cité de la peur)",
+      "detail": "Alan Mollene"
+    },
+    {
+      "idBook": 29,
+      "books": "Tarragon - Primerba, Paste",
+      "image": "http://dummyimage.com/204x174.png/ff4444/ffffff",
+      "title": "Gods and Generals",
+      "detail": "Petunia Dozdill"
+    },
+    {
+      "idBook": 30,
+      "books": "Pike - Frozen Fillet",
+      "image": "http://dummyimage.com/191x113.bmp/dddddd/000000",
+      "title": "Melbourne",
+      "detail": "Farleigh Prater"
+    },
+    {
+      "idBook": 31,
+      "books": "Cheese - Cheddar With Claret",
+      "image": "http://dummyimage.com/113x249.png/dddddd/000000",
+      "title": "Happily N'Ever After",
+      "detail": "Lucina Smidmor"
+    },
+    {
+      "idBook": 32,
+      "books": "Ostrich - Prime Cut",
+      "image": "http://dummyimage.com/151x167.bmp/cc0000/ffffff",
+      "title": "Zombie Apocalypse",
+      "detail": "Hale Ponder"
+    },
+    {
+      "idBook": 33,
+      "books": "Cheese - Grana Padano",
+      "image": "http://dummyimage.com/245x226.png/dddddd/000000",
+      "title": "Sunshine on Leith ",
+      "detail": "Way Doore"
+    },
+    {
+      "idBook": 34,
+      "books": "Wine - White, Lindemans Bin 95",
+      "image": "http://dummyimage.com/141x162.bmp/ff4444/ffffff",
+      "title": "Wishful Drinking",
+      "detail": "Theodoric Aitchinson"
+    },
+    {
+      "idBook": 35,
+      "books": "Gatorade - Lemon Lime",
+      "image": "http://dummyimage.com/164x210.png/5fa2dd/ffffff",
+      "title": "2:37",
+      "detail": "Alysa McKellar"
+    },
+    {
+      "idBook": 36,
+      "books": "Kellogs Cereal In A Cup",
+      "image": "http://dummyimage.com/242x169.png/cc0000/ffffff",
+      "title": "In a Year with 13 Moons (In einem Jahr mit 13 Monden)",
+      "detail": "Hanan Matteuzzi"
+    },
+    {
+      "idBook": 37,
+      "books": "Lettuce Romaine Chopped",
+      "image": "http://dummyimage.com/149x114.jpg/dddddd/000000",
+      "title": "Summertime",
+      "detail": "Willi Oulner"
+    },
+    {
+      "idBook": 38,
+      "books": "Tia Maria",
+      "image": "http://dummyimage.com/210x156.png/dddddd/000000",
+      "title": "In the Bleak Midwinter",
+      "detail": "Gwynne Gohn"
+    },
+    {
+      "idBook": 39,
+      "books": "Oyster - In Shell",
+      "image": "http://dummyimage.com/217x197.jpg/cc0000/ffffff",
+      "title": "Annabelle",
+      "detail": "Claudell Brian"
+    },
+    {
+      "idBook": 40,
+      "books": "Lettuce - Lolla Rosa",
+      "image": "http://dummyimage.com/155x183.png/dddddd/000000",
+      "title": "Dead Snow (Død snø)",
+      "detail": "Minerva Keppel"
+    },
+    {
+      "idBook": 41,
+      "books": "Spice - Paprika",
+      "image": "http://dummyimage.com/216x122.png/cc0000/ffffff",
+      "title": "County Teacher, The (Venkovský ucitel)",
+      "detail": "Natassia Megarrell"
+    },
+    {
+      "idBook": 42,
+      "books": "Uniform Linen Charge",
+      "image": "http://dummyimage.com/227x142.bmp/ff4444/ffffff",
+      "title": "Chronicles of Narnia: Prince Caspian, The",
+      "detail": "Dorian Callender"
+    },
+    {
+      "idBook": 43,
+      "books": "Beer - Sleeman Fine Porter",
+      "image": "http://dummyimage.com/249x174.jpg/dddddd/000000",
+      "title": "Matter of Life and Death, A (Stairway to Heaven)",
+      "detail": "Marissa Niaves"
+    },
+    {
+      "idBook": 44,
+      "books": "Juice - Clamato, 341 Ml",
+      "image": "http://dummyimage.com/247x200.png/cc0000/ffffff",
+      "title": "Search, The",
+      "detail": "Field Dunstall"
+    },
+    {
+      "idBook": 45,
+      "books": "Ecolab - Lime - A - Way 4/4 L",
+      "image": "http://dummyimage.com/186x181.jpg/5fa2dd/ffffff",
+      "title": "Henry V",
+      "detail": "Alick Kerwick"
+    },
+    {
+      "idBook": 46,
+      "books": "Pickles - Gherkins",
+      "image": "http://dummyimage.com/123x230.bmp/ff4444/ffffff",
+      "title": "Shanghai Knights",
+      "detail": "Maurene Meryett"
+    },
+    {
+      "idBook": 47,
+      "books": "Saskatoon Berries - Frozen",
+      "image": "http://dummyimage.com/127x184.bmp/ff4444/ffffff",
+      "title": "The Stanford Prison Experiment",
+      "detail": "Leilah Dabrowski"
+    },
+    {
+      "idBook": 48,
+      "books": "Sauce - Gravy, Au Jus, Mix",
+      "image": "http://dummyimage.com/119x118.png/cc0000/ffffff",
+      "title": "Fine, Totally Fine (Zenzen Daijobu)",
+      "detail": "Keelby Burberow"
+    },
+    {
+      "idBook": 49,
+      "books": "Pepper - Paprika, Spanish",
+      "image": "http://dummyimage.com/158x180.bmp/dddddd/000000",
+      "title": "End of Love, The",
+      "detail": "Kirbie Shuard"
+    },
+    {
+      "idBook": 50,
+      "books": "Turkey - Breast, Bone - In",
+      "image": "http://dummyimage.com/187x181.jpg/cc0000/ffffff",
+      "title": "Mr. Holland's Opus",
+      "detail": "Pris Hyland"
+    },
+    {
+      "idBook": 51,
+      "books": "Juice - Lemon",
+      "image": "http://dummyimage.com/145x138.jpg/5fa2dd/ffffff",
+      "title": "Any Number Can Win (Mélodie en sous-sol )",
+      "detail": "Sampson Chatfield"
+    },
+    {
+      "idBook": 52,
+      "books": "Bread - Pain Au Liat X12",
+      "image": "http://dummyimage.com/221x221.jpg/dddddd/000000",
+      "title": "Beau Brummel",
+      "detail": "Nellie Elstob"
+    },
+    {
+      "idBook": 53,
+      "books": "Cheese - St. Andre",
+      "image": "http://dummyimage.com/178x129.png/cc0000/ffffff",
+      "title": "Ringers: Lord of the Fans",
+      "detail": "Onofredo Kittles"
+    },
+    {
+      "idBook": 54,
+      "books": "Wine - Red, Wolf Blass, Yellow",
+      "image": "http://dummyimage.com/250x205.bmp/cc0000/ffffff",
+      "title": "Davy Crockett, King of the Wild Frontier",
+      "detail": "Cassie De Biasio"
+    },
+    {
+      "idBook": 55,
+      "books": "Tomato - Peeled Italian Canned",
+      "image": "http://dummyimage.com/114x178.jpg/ff4444/ffffff",
+      "title": "Argo",
+      "detail": "Halsy Coslitt"
+    },
+    {
+      "idBook": 56,
+      "books": "Nacho Chips",
+      "image": "http://dummyimage.com/203x183.png/cc0000/ffffff",
+      "title": "Swimming",
+      "detail": "Matteo Dibdale"
+    },
+    {
+      "idBook": 57,
+      "books": "Beer - Sleemans Honey Brown",
+      "image": "http://dummyimage.com/192x132.jpg/ff4444/ffffff",
+      "title": "Killer Pad",
+      "detail": "Elvyn Little"
+    },
+    {
+      "idBook": 58,
+      "books": "Iced Tea Concentrate",
+      "image": "http://dummyimage.com/110x226.png/ff4444/ffffff",
+      "title": "Arc",
+      "detail": "Kennith Bumford"
+    },
+    {
+      "idBook": 59,
+      "books": "Wine - Guy Sage Touraine",
+      "image": "http://dummyimage.com/172x233.png/5fa2dd/ffffff",
+      "title": "Ernest Goes to School",
+      "detail": "Gizela Billinge"
+    },
+    {
+      "idBook": 60,
+      "books": "Soup - Campbells Tomato Ravioli",
+      "image": "http://dummyimage.com/109x196.bmp/ff4444/ffffff",
+      "title": "Boys in the Band, The",
+      "detail": "Booth Luttger"
+    },
+    {
+      "idBook": 61,
+      "books": "Shrimp - Black Tiger 13/15",
+      "image": "http://dummyimage.com/164x237.jpg/cc0000/ffffff",
+      "title": "Lucky Ones, The",
+      "detail": "Hammad Stallworth"
+    },
+    {
+      "idBook": 62,
+      "books": "Pesto - Primerba, Paste",
+      "image": "http://dummyimage.com/188x103.png/ff4444/ffffff",
+      "title": "Bling Ring, The",
+      "detail": "Regine Thornton"
+    },
+    {
+      "idBook": 63,
+      "books": "Pheasants - Whole",
+      "image": "http://dummyimage.com/190x140.bmp/ff4444/ffffff",
+      "title": "Tomorrow Night",
+      "detail": "Casi Scafe"
+    },
+    {
+      "idBook": 64,
+      "books": "Beef - Ox Tongue, Pickled",
+      "image": "http://dummyimage.com/149x206.bmp/cc0000/ffffff",
+      "title": "Love and Other Catastrophes",
+      "detail": "Luciana Cornbill"
+    },
+    {
+      "idBook": 65,
+      "books": "Bread - Pumpernickle, Rounds",
+      "image": "http://dummyimage.com/223x208.png/5fa2dd/ffffff",
+      "title": "Joan of Paris",
+      "detail": "Godfry Altimas"
+    },
+    {
+      "idBook": 66,
+      "books": "Irish Cream - Butterscotch",
+      "image": "http://dummyimage.com/147x125.jpg/dddddd/000000",
+      "title": "Steal Big, Steal Little",
+      "detail": "Luisa Monier"
+    },
+    {
+      "idBook": 67,
+      "books": "Oil - Avocado",
+      "image": "http://dummyimage.com/230x151.bmp/cc0000/ffffff",
+      "title": "Giorgino",
+      "detail": "Shayla Amburgy"
+    },
+    {
+      "idBook": 68,
+      "books": "Yoplait Drink",
+      "image": "http://dummyimage.com/201x164.jpg/dddddd/000000",
+      "title": "Celine: Through the Eyes of the World",
+      "detail": "Judah Giuroni"
+    },
+    {
+      "idBook": 69,
+      "books": "Stock - Beef, White",
+      "image": "http://dummyimage.com/215x247.png/cc0000/ffffff",
+      "title": "Man Who Knew Too Much, The",
+      "detail": "Jenn Spurrier"
+    },
+    {
+      "idBook": 70,
+      "books": "Sauce - Hp",
+      "image": "http://dummyimage.com/100x126.jpg/dddddd/000000",
+      "title": "So Normal (Normais, Os)",
+      "detail": "Jeanelle Rochford"
+    },
+    {
+      "idBook": 71,
+      "books": "Apple - Fuji",
+      "image": "http://dummyimage.com/150x209.bmp/dddddd/000000",
+      "title": "Did You Hear About the Morgans?",
+      "detail": "Blaine Lowles"
+    },
+    {
+      "idBook": 72,
+      "books": "Muffin Mix - Carrot",
+      "image": "http://dummyimage.com/102x147.bmp/dddddd/000000",
+      "title": "Chained for Life",
+      "detail": "Jane Matches"
+    },
+    {
+      "idBook": 73,
+      "books": "Vinegar - Tarragon",
+      "image": "http://dummyimage.com/203x200.png/cc0000/ffffff",
+      "title": "Battleship Potemkin",
+      "detail": "Ericka Bramhall"
+    },
+    {
+      "idBook": 74,
+      "books": "Artichokes - Knobless, White",
+      "image": "http://dummyimage.com/214x157.bmp/cc0000/ffffff",
+      "title": "Resurrected, The",
+      "detail": "Luisa Scotchmur"
+    },
+    {
+      "idBook": 75,
+      "books": "Cheese - Grana Padano",
+      "image": "http://dummyimage.com/215x177.bmp/5fa2dd/ffffff",
+      "title": "Tess of the Storm Country",
+      "detail": "Jami Greason"
+    },
+    {
+      "idBook": 76,
+      "books": "Yukon Jack",
+      "image": "http://dummyimage.com/171x167.png/5fa2dd/ffffff",
+      "title": "Barretts of Wimpole Street, The (a.k.a. Forbidden Alliance)",
+      "detail": "Helli Olenchikov"
+    },
+    {
+      "idBook": 77,
+      "books": "Pork - Bones",
+      "image": "http://dummyimage.com/167x137.png/cc0000/ffffff",
+      "title": "Long, Long Trailer, The",
+      "detail": "Karel Bonicelli"
+    },
+    {
+      "idBook": 78,
+      "books": "Whmis Spray Bottle Graduated",
+      "image": "http://dummyimage.com/231x232.bmp/cc0000/ffffff",
+      "title": "Warped Ones, The (Kyonetsu no kisetsu)",
+      "detail": "Pauly Giorgioni"
+    },
+    {
+      "idBook": 79,
+      "books": "Beer - Guiness",
+      "image": "http://dummyimage.com/141x168.jpg/dddddd/000000",
+      "title": "Mental",
+      "detail": "Rriocard McKeveney"
+    },
+    {
+      "idBook": 80,
+      "books": "Lamb - Ground",
+      "image": "http://dummyimage.com/148x230.png/5fa2dd/ffffff",
+      "title": "Synecdoche, New York",
+      "detail": "Devonne Madine"
+    },
+    {
+      "idBook": 81,
+      "books": "Sole - Dover, Whole, Fresh",
+      "image": "http://dummyimage.com/125x115.png/ff4444/ffffff",
+      "title": "High Tech, Low Life",
+      "detail": "Myra Spinas"
+    },
+    {
+      "idBook": 82,
+      "books": "Pepper - Roasted Red",
+      "image": "http://dummyimage.com/196x208.jpg/cc0000/ffffff",
+      "title": "Skeleton Crew",
+      "detail": "Yankee Londsdale"
+    },
+    {
+      "idBook": 83,
+      "books": "Vinegar - Red Wine",
+      "image": "http://dummyimage.com/149x123.png/cc0000/ffffff",
+      "title": "Navajo Joe",
+      "detail": "Ulrick Govett"
+    },
+    {
+      "idBook": 84,
+      "books": "Cheese - Pied De Vents",
+      "image": "http://dummyimage.com/111x244.bmp/ff4444/ffffff",
+      "title": "Carrie",
+      "detail": "Roscoe Lintall"
+    },
+    {
+      "idBook": 85,
+      "books": "Butter - Unsalted",
+      "image": "http://dummyimage.com/115x197.png/dddddd/000000",
+      "title": "Adam & Paul",
+      "detail": "Anderson Bevis"
+    },
+    {
+      "idBook": 86,
+      "books": "Banana",
+      "image": "http://dummyimage.com/103x102.jpg/ff4444/ffffff",
+      "title": "Mimic: Sentinel",
+      "detail": "Colas Fierman"
+    },
+    {
+      "idBook": 87,
+      "books": "Piping - Bags Quizna",
+      "image": "http://dummyimage.com/188x150.jpg/5fa2dd/ffffff",
+      "title": "Maradona, the Hand of God (Maradona, la mano di Dio)",
+      "detail": "Diane-marie Fryatt"
+    },
+    {
+      "idBook": 88,
+      "books": "Grapes - Black",
+      "image": "http://dummyimage.com/209x231.jpg/ff4444/ffffff",
+      "title": "Bad Company",
+      "detail": "Morton Keddey"
+    },
+    {
+      "idBook": 89,
+      "books": "Mushroom - Chanterelle, Dry",
+      "image": "http://dummyimage.com/149x116.jpg/ff4444/ffffff",
+      "title": "Good Night, The",
+      "detail": "Amory Poure"
+    },
+    {
+      "idBook": 90,
+      "books": "Water - Perrier",
+      "image": "http://dummyimage.com/143x175.jpg/cc0000/ffffff",
+      "title": "Mr. Brooks",
+      "detail": "Parker Pray"
+    },
+    {
+      "idBook": 91,
+      "books": "Flower - Dish Garden",
+      "image": "http://dummyimage.com/179x167.png/ff4444/ffffff",
+      "title": "King of California",
+      "detail": "Blayne Baradel"
+    },
+    {
+      "idBook": 92,
+      "books": "Cloves - Ground",
+      "image": "http://dummyimage.com/201x232.bmp/ff4444/ffffff",
+      "title": "Dark Lurking, The",
+      "detail": "Herbie Garz"
+    },
+    {
+      "idBook": 93,
+      "books": "Sachet",
+      "image": "http://dummyimage.com/236x127.png/cc0000/ffffff",
+      "title": "Don't Change Your Husband",
+      "detail": "Jarret Avieson"
+    },
+    {
+      "idBook": 94,
+      "books": "Wood Chips - Regular",
+      "image": "http://dummyimage.com/242x222.png/cc0000/ffffff",
+      "title": "Jungle2Jungle (a.k.a. Jungle 2 Jungle)",
+      "detail": "Ysabel Peake"
+    },
+    {
+      "idBook": 95,
+      "books": "Parsnip",
+      "image": "http://dummyimage.com/241x118.jpg/ff4444/ffffff",
+      "title": "Infamous",
+      "detail": "Cthrine Farbrother"
+    },
+    {
+      "idBook": 96,
+      "books": "Gingerale - Schweppes, 355 Ml",
+      "image": "http://dummyimage.com/120x103.bmp/5fa2dd/ffffff",
+      "title": "Kikujiro (Kikujirô no natsu)",
+      "detail": "Bonny Critzen"
+    },
+    {
+      "idBook": 97,
+      "books": "Puree - Mango",
+      "image": "http://dummyimage.com/109x173.jpg/5fa2dd/ffffff",
+      "title": "Angels and Insects",
+      "detail": "Neely Ovington"
+    },
+    {
+      "idBook": 98,
+      "books": "Garbage Bags - Clear",
+      "image": "http://dummyimage.com/199x135.png/dddddd/000000",
+      "title": "In-Laws, The",
+      "detail": "Jonas Abrahmson"
+    },
+    {
+      "idBook": 99,
+      "books": "Sauce - Mint",
+      "image": "http://dummyimage.com/184x157.bmp/dddddd/000000",
+      "title": "Audition (Konkurs)",
+      "detail": "Bancroft Burnside"
+    },
+    {
+      "idBook": 100,
+      "books": "Puree - Mango",
+      "image": "http://dummyimage.com/232x165.jpg/ff4444/ffffff",
+      "title": "Perfect Murder, A",
+      "detail": "Lazaro Lisett"
     }
   ],
   "users": [

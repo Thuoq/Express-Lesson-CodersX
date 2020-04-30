@@ -77,16 +77,15 @@ exports.verifyUser = async (req,res,next) => {
 
 exports.isAdmin = (req,res,next) => {
 	let idUser  = req.signedCookies.userId *1;
-	console.log(idUser); 
 	let {name,isAdmin} = db.get("users").find({idUser: idUser}).value();
 	const trancationUser = db.get("trancations").filter({name: name}).value();
-	console.log(isAdmin);
-	if(!isAdmin) {
+	if(!isAdmin) {		
 		res.redirect("/trancation");
 		res.render("trancations/trancation",{
 			trancations: trancationUser
 		})
 		return; 
 	}
+	res.locals.admin = isAdmin;
 	next();
 }

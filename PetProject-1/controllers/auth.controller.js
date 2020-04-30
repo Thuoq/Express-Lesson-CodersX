@@ -11,7 +11,6 @@ exports.authSignInPost = (req,res) => {
 	res.render("trancations/trancation",{
 		trancations: trancationUser,
 	})
-
 }
 
 exports.authSignOut = (req,res) => {

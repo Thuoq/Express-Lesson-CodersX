@@ -2,10 +2,16 @@ const db = require("../db");
 const storeBooks = db.get("books").value();
 
 exports.indexBook = (req,res)=> {
-	const books = storeBooks;
-	console.log(req.cookies.userId)
+	let page = parseInt(req.query.page) || 1;
+	let perPage = 9;
+	const start = (page - 1 ) * perPage;
+	const end = page*perPage;
+	let totalPage = Math.ceil(storeBooks.lenth / perPage)
+	const books = storeBooks.slice(start,end);
 	res.render("books/books",{
 		books,
+		totalPage,
+		page: [page]
 	})
 }
 
