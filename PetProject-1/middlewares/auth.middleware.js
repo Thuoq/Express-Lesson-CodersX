@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const saltRounds = process.env.MY_SLAT_ROUND_PASSWORD *1;
 const db = require("../db");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -88,4 +88,46 @@ exports.isAdmin = (req,res,next) => {
 	}
 	res.locals.admin = isAdmin;
 	next();
+}
+
+exports.verifyUserSignUp = async (req,res,next) => {
+	const {name,password,confirmPassword,email} = req.body;
+	let errors = [];
+	// VERIFY_USER_SIGNUP
+	if(password !== confirmPassword) {
+		errors.push("Don't match password. Please try again");
+		
+	}
+	let isUser = db.get("users").find({name: name}).value();
+	if(isUser) {
+		errors.push("Users have exits. Please try another nick name!");
+	}
+	let isEmail = db.get("users").find({email: email}).value();
+	if(isEmail) {
+		errors.push("Users have exits. Please try another nick name!");
+	}
+	if(errors.length) {
+		res.render('authentication/signup',{
+			errors,
+		})
+		return;
+	}
+	// SECURITY Create Security PassWord AND STORE IN DATA
+	await bcrypt.hash(password, saltRounds, function(err, hash) {
+   			 req.body.password = hash;
+   			 let newIdUser = db.get("users").value().length + 1;
+   			 let newUserSignUp =  Object.assign({},{
+   			 		isAdmin:false,
+   			 		idUser: newIdUser,
+					isPassword:0,
+					name,
+					password,
+					email});
+   			 db.get("users").push(newUserSignUp).write();
+   			 res.cookie('userId', newIdUser,{
+	   					signed:true
+	   				})
+   			 res.locals.user = name;
+   			 next();
+	});
 }

@@ -10,7 +10,6 @@ exports.indexBook = (req,res)=> {
 	const books = storeBooks.slice(start,end);
 	res.render("books/books",{
 		books,
-		totalPage,
 		page: [page]
 	})
 }
