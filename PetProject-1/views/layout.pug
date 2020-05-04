@@ -1,6 +1,7 @@
-html
+html(lang="en")
 	head
 		link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+		meta(name="viewport",content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		link( rel="icon",href="/favicon-32x32.png",type="image/png")
 	body
 		nav(class="navbar navbar-expand-lg navbar-dark bg-secondary text-white")
@@ -18,6 +19,8 @@ html
 		
 				if user
 					span.navbar-text.text-white.text-capitalize= "Hello " + user.name
+					img(src=srcImg,width="30",height="30",class="rounded-circle")
+					a(href="/profile",class="nav-item nav-link text-white") Edit Your Profile
 					a(href="/auth/signout",class="nav-item nav-link text-white") Logout
 		div(class="container")
 			block content  

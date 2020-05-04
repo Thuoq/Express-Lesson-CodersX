@@ -2,15 +2,18 @@ const db = require("../db");
 const storeBooks = db.get("books").value();
 
 exports.indexBook = (req,res)=> {
+	let {userId} = req.signedCookies;
+	let inFormationUser = db.get("users").find({idUser: parseInt(userId) }).value();
 	let page = parseInt(req.query.page) || 1;
 	let perPage = 9;
-	const start = (page - 1 ) * perPage;
-	const end = page*perPage;
+	let start = (page - 1 ) * perPage;
+	let end = page*perPage;
 	let totalPage = Math.ceil(storeBooks.lenth / perPage)
-	const books = storeBooks.slice(start,end);
+	let books = storeBooks.slice(start,end);
 	res.render("books/books",{
 		books,
-		page: [page]
+		page: [page],
+		srcImg : inFormationUser.avatar
 	})
 }
 
@@ -21,7 +24,7 @@ exports.bookCreate = (req,res) => {
 exports.bookCreatePost = (req,res) => {
 	let id = storeBooks.length + 1;
 	let query = {...req.body}
-	const newBook = Object.assign({},query,{idBook: id})
+	let newBook = Object.assign({},query,{idBook: id})
 	db.get("books").push(newBook).write();
 	res.redirect("/books");
 }

@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const userRouter = require("./routers/user.router");
@@ -6,6 +6,7 @@ const bookRouter  = require("./routers/book.router");
 const cookieParser = require('cookie-parser');
 const trancationRouter = require("./routers/transcaction.router");
 const authRouter = require("./routers/auth.router");
+const profileRouter = require("./routers/profile.router");
 const app = express();
 const middlewareUser = require("./middlewares/auth.middleware");
 app.use(express.static('public'));
@@ -34,7 +35,11 @@ app.
 app.
 	use("/auth",
 	authRouter)
-
+app.
+	use("/profile",
+		middlewareUser.requiredAuth,
+		profileRouter
+		)
 app.listen(PORT ,(req,res)=> {
 	console.log("Server is Runing on PORT: ",PORT)
 })

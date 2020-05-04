@@ -6,15 +6,18 @@ const storeUsers = db.get("users").value();
 exports.indexTrancation  = (req,res) => {
 	const trancations = storeTranscaction;
 	const [userAdmin]  = db.get("users").filter({idUser: req.signedCookies.userId * 1}).value();
+	let {avatar} = db.get("users").find({idUser: parseInt(req.signedCookies.userId)}).value();
 	if(!userAdmin.isAdmin) {
 		let trancationUser = db.get("trancations").filter({name:userAdmin.name}).value()
 		res.render("trancations/trancation",{
 			trancations: trancationUser,
+			srcImg: avatar
 		})
 		return;
 	}
 	res.render("trancations/trancation",{
 		trancations,
+		srcImg: avatar
 	})
 	
 }

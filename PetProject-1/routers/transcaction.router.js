@@ -1,7 +1,11 @@
+const multer  = require('multer')
+const upload = multer({dest: './public/uploads/'})
+
 const express = require("express");
 const router  = express.Router();
 const trancationsController = require("../controllers/transcaction.controller");
 const middlewareUser = require("../middlewares/auth.middleware");
+
 router
 	.get("/",
 		trancationsController.indexTrancation)

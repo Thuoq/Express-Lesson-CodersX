@@ -1,9 +1,14 @@
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: 'cownut', 
+  api_key: '874837483274837', 
+  api_secret: process.env.SECRET_KEY_CLOUDINARY, 
+});
 const bcrypt = require('bcrypt');
 const saltRounds = process.env.MY_SLAT_ROUND_PASSWORD *1;
 const db = require("../db");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 
 exports.requiredAuth = (req,res,next) => {
 	if(!req.signedCookies.userId) {
@@ -63,6 +68,7 @@ exports.verifyUser = async (req,res,next) => {
 	   				res.cookie('userId', userName.idUser,{
 	   					signed:true
 	   				})
+	   				db.get("users").set(`users[${userName.idUser}-1].isPassword`,0)
 	   				next();
 	   			}else{
 	   				db.update(`users[${userName.idUser -1}].isPassword`, n => n + 1 ).write();
@@ -92,6 +98,8 @@ exports.isAdmin = (req,res,next) => {
 
 exports.verifyUserSignUp = async (req,res,next) => {
 	const {name,password,confirmPassword,email} = req.body;
+	const {file:{path: avatar}} = req;
+	let newAvatar = avatar.split("\\").slice(1).join('/');
 	let errors = [];
 	// VERIFY_USER_SIGNUP
 	if(password !== confirmPassword) {
@@ -110,7 +118,7 @@ exports.verifyUserSignUp = async (req,res,next) => {
 		res.render('authentication/signup',{
 			errors,
 		})
-		return;
+		return;  
 	}
 	// SECURITY Create Security PassWord AND STORE IN DATA
 	await bcrypt.hash(password, saltRounds, function(err, hash) {
@@ -119,15 +127,19 @@ exports.verifyUserSignUp = async (req,res,next) => {
    			 let newUserSignUp =  Object.assign({},{
    			 		isAdmin:false,
    			 		idUser: newIdUser,
+   			 		avatar: newAvatar,
 					isPassword:0,
 					name,
-					password,
+					password: req.body.password,
 					email});
    			 db.get("users").push(newUserSignUp).write();
+   			 cloudinary.uploader.upload(newAvatar,{public_id: newIdUserw} ,(error,result)=> {
+   			 			console.log(result);
+   			 });
    			 res.cookie('userId', newIdUser,{
 	   					signed:true
 	   				})
-   			 res.locals.user = name;
+   			 res.locals.user = {name : name};
    			 next();
 	});
 }

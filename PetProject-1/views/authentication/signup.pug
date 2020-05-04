@@ -5,7 +5,7 @@ block content
 	if errors
 		each err in errors
 			.alert.alert-danger= err
-	form(action="/auth/signup",method="POST",class="float-left")
+	form(action="/auth/signup",method="POST",class="float-left",enctype="multipart/form-data")
 		h2 Do you have not account
 		.form-group
 			label(for='exampleInputEmail2') Email address
@@ -21,4 +21,7 @@ block content
 		.form-group
 			label(for='exampleInputEmail1') Confirm Password
 			input#exampleInputPassword1.form-control(type='password', placeholder='Enter your password',required,name="confirmPassword")
+		.form-group
+			label(for='exampleFormControlFile1') Your Avatar
+			input(type="file",class="form-control-file",id="exampleFormControlFile1",name="avatar")
 		button.btn.btn-primary(type='submit') Sign Up
