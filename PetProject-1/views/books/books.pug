@@ -16,7 +16,8 @@ block content
 				.card-body
 					h5(class="card-title")= book.books
 					p(class="card-text")= book.title
-					a(href="/books/" + book.idBook,class="btn btn-primary ") View Book
+					a(href="/books/" + book.idBook,class="btn btn-primary mr-3 ") View Book
+					a(href="/books/add/" + book.idBook,class="btn btn-primary ") Add Item To Cart
 					if isAdmin
 						a(href="/books/"+ book.idBook +"/edit",class="btn btn-primary ") Edit Title Book
 						a(href="/books/"+ book.idBook + "/delete",class="btn btn-primary ") Delete Book

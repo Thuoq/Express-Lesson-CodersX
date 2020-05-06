@@ -397,5 +397,28 @@
       "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
       "isAdmin": false
     }
+  ],
+  "sessions": [
+    {
+      "idSession": 1,
+      "cart": {
+        "2": 4,
+        "3": 19,
+        "5": 1,
+        "6": 1
+      }
+    },
+    {
+      "idSession": 2,
+      "cart": {}
+    },
+    {
+      "idSession": 3,
+      "cart": {
+        "1": 1,
+        "2": 1,
+        "3": 2
+      }
+    }
   ]
 }

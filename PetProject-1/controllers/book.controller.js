@@ -2,19 +2,38 @@ const db = require("../db");
 const storeBooks = db.get("books").value();
 
 exports.indexBook = (req,res)=> {
-	let {userId} = req.signedCookies;
+	let {userId,sessionId} = req.signedCookies;
 	let inFormationUser = db.get("users").find({idUser: parseInt(userId) }).value();
+	/*Panitaion*/
 	let page = parseInt(req.query.page) || 1;
 	let perPage = 9;
 	let start = (page - 1 ) * perPage;
 	let end = page*perPage;
 	let totalPage = Math.ceil(storeBooks.lenth / perPage)
 	let books = storeBooks.slice(start,end);
-	res.render("books/books",{
-		books,
-		page: [page],
-		srcImg : inFormationUser.avatar
-	})
+	/*****/
+	let getCartItem = db.get("sessions")
+		.find({idSession: sessionId * 1}).value().cart;
+	let converCartToArr = Object.keys(getCartItem);
+	let i = 0;
+	let totalItem = 0;
+	while(converCartToArr[i]){
+		totalItem += getCartItem[converCartToArr[i]];
+		i++;
+	}
+	if(inFormationUser){
+		res.render("books/books",{
+			books,
+			page: [page],
+			srcImg : inFormationUser.avatar,
+		})
+	}else{
+		res.render("books/books",{
+			books,
+			page: [page],
+			number : totalItem
+		})
+	}
 }
 
 exports.bookCreate = (req,res) => {
@@ -63,4 +82,28 @@ exports.bookEditPost = (req,res) => {
 	  .assign({ title: newTitle})
 	  .write()
 	res.redirect("/")
+}
+
+
+exports.countItemToCart = (req,res) => {
+	let idBook  = req.params.id * 1
+	let {sessionId} = req.signedCookies;
+	if(!sessionId) {
+		res.redirect('/books');
+		return
+	}
+
+	let count = db.get("sessions")
+				  .find({idSession: sessionId * 1})
+				  .get('cart.' + idBook,0)
+				  .value();
+	db.get("sessions")
+		.find({idSession: sessionId * 1})
+		.set('cart.' + idBook,count + 1)
+		.write();
+	res.redirect("/books"); 
+}
+
+exports.getCheckOutPage = (req,res) => {
+	res.send("<h1>Hello</h1>")
 }
