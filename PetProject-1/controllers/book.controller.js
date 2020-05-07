@@ -1,8 +1,9 @@
 const db = require("../db");
 const storeBooks = db.get("books").value();
+const getCountItem = require("../utilis/book.utilis");
 
 exports.indexBook = (req,res)=> {
-	let {userId,sessionId} = req.signedCookies;
+	let {userId} = req.signedCookies;
 	let inFormationUser = db.get("users").find({idUser: parseInt(userId) }).value();
 	/*Panitaion*/
 	let page = parseInt(req.query.page) || 1;
@@ -11,16 +12,8 @@ exports.indexBook = (req,res)=> {
 	let end = page*perPage;
 	let totalPage = Math.ceil(storeBooks.lenth / perPage)
 	let books = storeBooks.slice(start,end);
-	/*****/
-	let getCartItem = db.get("sessions")
-		.find({idSession: sessionId * 1}).value().cart;
-	let converCartToArr = Object.keys(getCartItem);
-	let i = 0;
-	let totalItem = 0;
-	while(converCartToArr[i]){
-		totalItem += getCartItem[converCartToArr[i]];
-		i++;
-	}
+	let totalItem = getCountItem(req);
+	/*********/
 	if(inFormationUser){
 		res.render("books/books",{
 			books,
@@ -105,5 +98,8 @@ exports.countItemToCart = (req,res) => {
 }
 
 exports.getCheckOutPage = (req,res) => {
-	res.send("<h1>Hello</h1>")
+	const totalItem = getCountItem(req);
+	res.render("checkout/checkout",{
+		number : totalItem
+	})
 }

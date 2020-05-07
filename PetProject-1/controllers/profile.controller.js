@@ -35,7 +35,7 @@ exports.postEditProfile = (req,res) => {
 		email,
 		name,
 		avatar:newAvatar
-		}).write();
+		}).write();	
 			res.render("profile/profile",{
 			inFormationUser,
 			srcImg: newAvatar,
@@ -43,6 +43,4 @@ exports.postEditProfile = (req,res) => {
 		})
 		return;
 	}
-
-	
 }

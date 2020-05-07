@@ -7,5 +7,7 @@ exports.verifyCheckOutPage = (req,res,next) => {
 		res.redirect("/auth");
 		return;
 	}
+	let {name} = db.get("users").find({idUser : userId * 1 }).value();
+	res.locals.user = {name: name};
 	next();
 }

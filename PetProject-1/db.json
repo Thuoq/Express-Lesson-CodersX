@@ -396,6 +396,14 @@
       "email": "hiensambi@bka.edu.vn",
       "password": "$2b$10$6tmY5saJqCq0TDTLLSgbvuqi.APCltpmHEmUq9d5fFEDfvs3RoyU.",
       "isAdmin": false
+    },
+    {
+      "name": "hien",
+      "idBook": 2,
+      "books": "Kirsch - Schloss",
+      "image": "http://dummyimage.com/149x227.bmp/ff4444/ffffff",
+      "title": "Big Man Japan (Dai-Nihonjin)",
+      "detail": "Carleen Unstead"
     }
   ],
   "sessions": [
@@ -418,6 +426,16 @@
         "1": 1,
         "2": 1,
         "3": 2
+      }
+    },
+    {
+      "idSession": 4,
+      "cart": {}
+    },
+    {
+      "idSession": 5,
+      "cart": {
+        "2": 1
       }
     }
   ]

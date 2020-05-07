@@ -1,23 +1,33 @@
 const db = require("../db");
+const getCountItem = require("../utilis/book.utilis");
 const storeTranscaction = db.get("trancations").value();
 const storeBooks = db.get("books").value();
 const storeUsers = db.get("users").value();
+const takeInforTrancation = require("../utilis/trancations.utilis");	
 
 exports.indexTrancation  = (req,res) => {
 	const trancations = storeTranscaction;
-	const [userAdmin]  = db.get("users").filter({idUser: req.signedCookies.userId * 1}).value();
-	let {avatar} = db.get("users").find({idUser: parseInt(req.signedCookies.userId)}).value();
+	const [userAdmin]  = db.get("users")
+						   .filter({idUser: req.signedCookies.userId * 1})
+						   .value();
+	let {avatar} = db.get("users")
+					 	   .find({idUser: parseInt(req.signedCookies.userId)})
+					       .value();
+	let totalItem = getCountItem(req)
 	if(!userAdmin.isAdmin) {
-		let trancationUser = db.get("trancations").filter({name:userAdmin.name}).value()
+		let trancationUser = db.get("trancations")
+							   .filter({name:userAdmin.name})
+							   .value()
 		res.render("trancations/trancation",{
 			trancations: trancationUser,
-			srcImg: avatar
+			srcImg: avatar,
+			number: totalItem
 		})
 		return;
 	}
 	res.render("trancations/trancation",{
 		trancations,
-		srcImg: avatar
+		srcImg: avatar,
 	})
 	
 }
@@ -29,31 +39,13 @@ exports.trancationCreate = (req,res) => {
 	})
 }
 
-function takeInforTrancation(book,user) {
-	let newInforTrancation = {};
-	if(book) {
-		for(let i = 0 ; i < storeBooks.length ; i++) {
-			if(book === storeBooks[i].title) {
-				newInforTrancation = storeBooks[i]
-			}
-		}
-		return newInforTrancation;	
-	}else{
-		for(let i = 0 ; i < storeUsers.length ; i ++ ) {
-			if(user === storeUsers[i].name) {
-				newInforTrancation = storeUsers[i]
-			}
-		}
-		return newInforTrancation
-	}
-}
-
 exports.trancationCreatePost = (req,res) => {
 	let {user,book} = {...req.body};
 	let userTrancations = takeInforTrancation(null,user);
 	let bookTrancations =  takeInforTrancation(book,null)
 	let idTranscation = storeTranscaction.length + 1;
-	let newTrancation = Object.assign({},{idTranscation: idTranscation},bookTrancations,userTrancations);
+	let newTrancation = Object.assign({},{idTranscation: idTranscation},
+									bookTrancations,userTrancations);
 	db.get("trancations").push(newTrancation).write();
 	res.redirect("/trancation");
 }

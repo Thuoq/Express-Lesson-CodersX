@@ -1,17 +1,20 @@
 extends ../layout
 
 block content
-	h1 This is All Transcations 
-	a(href="/trancation/create") Create New Transcation
+	h1(class="mb-3") This is All Your Transcation
+	if admin 
+		a(href="/trancation/create") Create New Transcation
 	if id 
 		.alert.alert-danger= "ID " +  id +" Not Found " 
 	table.table
 		tr
 			th Trancation
-			th Compelete
+			if admin
+				th Compelete
 		each el in trancations 
 			tr
 				td= el.name + " mượn quyển sách " + el.title
-				td
-					a(href="/trancation/" + el.idTranscation+"/compelete",class="btn btn-primary") Compelete
+				if admin
+					td
+						a(href="/trancation/" + el.idTranscation+"/compelete",class="btn btn-primary") Compelete
 
