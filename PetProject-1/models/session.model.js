@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const sessionSchema = mongoose.Schema({
 	cart: [
 		{
+			idBook: mongoose.ObjectId,
 			books: String,
 			title: String,
 			quantity: Number,

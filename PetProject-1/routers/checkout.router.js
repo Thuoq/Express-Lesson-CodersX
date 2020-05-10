@@ -8,7 +8,10 @@ router
 	.get("/",
 		middlewareBooks.verifyCheckOutPage,
 		checkOutController.indexCheckOutPage)
-
+router
+	.get("/:id/increase",checkOutController.increaseBook)
+router
+	.get("/:id/decrease",checkOutController.decreaseBook)
 router
 	.get("/rent",
 		middlewareBooks.verifyCheckOutPage,

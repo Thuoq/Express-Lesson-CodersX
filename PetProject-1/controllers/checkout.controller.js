@@ -38,3 +38,30 @@ exports.rentCheckOutSucces = async (req,res) => {
 	await Sessions.findByIdAndUpdate(sessionId,{cart: []},{new: true})
 	res.redirect("/trancation")
 }
+
+exports.increaseBook = async (req,res) => {
+	const {sessionId} = req.signedCookies;
+	const idBook = req.params.id;
+	let {books} = await Books.findById(idBook)
+	let {cart} = await Sessions.findById(sessionId);
+	cart.map(el => el.books === books ? el.quantity += 1 : el)
+	await Sessions.findByIdAndUpdate(sessionId,
+		{cart : cart},
+		{new: true});
+	res.redirect("/checkout")
+}
+exports.decreaseBook = async (req,res) => {
+	const {sessionId} = req.signedCookies;
+	const idBook = req.params.id;
+	let {books} = await Books.findById(idBook)
+	let {cart} = await Sessions.findById(sessionId);
+	const exitsCart = cart.find(el => el.books === books);
+	if(exitsCart.quantity === 1) {
+		cart = cart.filter(el => el.books !== books);
+	}
+	cart.map(el => el.books === books ? el.quantity -= 1 : el)
+	await Sessions.findByIdAndUpdate(sessionId,
+		{cart : cart},
+		{new: true});
+	res.redirect("/checkout")
+}

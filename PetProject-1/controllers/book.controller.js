@@ -90,12 +90,13 @@ exports.countItemToCart = async (req,res) => {
 		res.redirect('/books');
 		return
 	}
-	let {books,title,image,detail} = await Books.findById(idBook);
+	let {books,title,image,detail,id} = await Books.findById(idBook);
 	let {cart} = await Sessions.findById(sessionId);
 	if(cart.find(el => el.books === books)) {
 		 cart.map(el => el.books === books ? el.quantity += 1 : el)
 	}else{
-		let newBooks =  Object.assign({},{quantity: 1,books,title,image,detail})
+		let newBooks =  Object.assign({},{quantity:
+				 1,books,title,image,detail,idBook: id})
 		cart.push(newBooks);
 	}
 	await Sessions.findByIdAndUpdate(sessionId,
