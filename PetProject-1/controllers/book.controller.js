@@ -1,24 +1,30 @@
 const db = require("../db");
+const Sessions = require("../models/session.model");
+const Books = require("../models/book.model");
+const Users = require("../models/user.model");
 const storeBooks = db.get("books").value();
 const getCountItem = require("../utilis/book.utilis");
 
-exports.indexBook = (req,res)=> {
+exports.indexBook = async (req,res)=> {
 	let {userId} = req.signedCookies;
-	let inFormationUser = db.get("users").find({idUser: parseInt(userId) }).value();
+	let storeBooks = await Books.find()
+	let inFormationUser = await Users.findOne({_id: userId })
 	/*Panitaion*/
 	let page = parseInt(req.query.page) || 1;
 	let perPage = 9;
-	let start = (page - 1 ) * perPage;
-	let end = page*perPage;
+	let start = (page - 1 ) * perPage; 
+	let end = page * perPage;
 	let totalPage = Math.ceil(storeBooks.lenth / perPage)
 	let books = storeBooks.slice(start,end);
-	let totalItem = getCountItem(req);
+	let totalItem = await getCountItem(req);
 	/*********/
 	if(inFormationUser){
 		res.render("books/books",{
 			books,
 			page: [page],
 			srcImg : inFormationUser.avatar,
+			user  : inFormationUser,
+			number : totalItem
 		})
 	}else{
 		res.render("books/books",{
@@ -42,7 +48,7 @@ exports.bookCreatePost = (req,res) => {
 }
 
 exports.bookDelete = (req,res) => {
-	const idBook = req.params.id * 1 ; 
+	const idBook = req.params.id  ; 
 	let bookDelete= {};
 	for(let i = 0 ; i < storeBooks.length ; i ++) {
 		if(idBook === storeBooks[i].idBook) {
@@ -54,7 +60,7 @@ exports.bookDelete = (req,res) => {
 }
 
 exports.bookEdit = (req,res) => {
-	const idBook = req.params.id * 1;
+	const idBook = req.params.id ;
 	let book  = storeBooks.filter( el => el.idBook === idBook)
 	res.render("books/editTitleBook",{
 		book: storeBooks
@@ -63,7 +69,7 @@ exports.bookEdit = (req,res) => {
 
 exports.bookEditPost = (req,res) => {
 	let newTitle = req.body.edit;
-	let idBook = req.params.id * 1;
+	let idBook = req.params.id ;
 	let bookUpdate = {}
 	for(let i = 0 ; i < storeBooks.length ; i ++) {
 		if(idBook === storeBooks[i].idBook) {
@@ -77,29 +83,24 @@ exports.bookEditPost = (req,res) => {
 	res.redirect("/")
 }
 
-
-exports.countItemToCart = (req,res) => {
-	let idBook  = req.params.id * 1
+exports.countItemToCart = async (req,res) => {
+	let idBook  = req.params.id ;
 	let {sessionId} = req.signedCookies;
 	if(!sessionId) {
 		res.redirect('/books');
 		return
 	}
-
-	let count = db.get("sessions")
-				  .find({idSession: sessionId * 1})
-				  .get('cart.' + idBook,0)
-				  .value();
-	db.get("sessions")
-		.find({idSession: sessionId * 1})
-		.set('cart.' + idBook,count + 1)
-		.write();
+	let {books,title,image,detail} = await Books.findById(idBook);
+	let {cart} = await Sessions.findById(sessionId);
+	if(cart.find(el => el.books === books)) {
+		 cart.map(el => el.books === books ? el.quantity += 1 : el)
+	}else{
+		let newBooks =  Object.assign({},{quantity: 1,books,title,image,detail})
+		cart.push(newBooks);
+	}
+	await Sessions.findByIdAndUpdate(sessionId,
+		{cart : cart},
+		{new: true});
 	res.redirect("/books"); 
 }
 
-exports.getCheckOutPage = (req,res) => {
-	const totalItem = getCountItem(req);
-	res.render("checkout/checkout",{
-		number : totalItem
-	})
-}

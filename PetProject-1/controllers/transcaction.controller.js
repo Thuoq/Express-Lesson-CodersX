@@ -3,32 +3,33 @@ const getCountItem = require("../utilis/book.utilis");
 const storeTranscaction = db.get("trancations").value();
 const storeBooks = db.get("books").value();
 const storeUsers = db.get("users").value();
+const Trancations = require("../models/trancation.model");
 const takeInforTrancation = require("../utilis/trancations.utilis");	
+const Users = require("../models/user.model");
+exports.indexTrancation  = async (req,res) => {
+	try{
+		const user = await Users.findById(req.signedCookies.userId);
+		let totalItem = await getCountItem(req)
+		if(!user.isAdmin) {
+			let trancationUser = await Trancations.find({name: user.name})
+			res.render("trancations/trancation",{
+				trancations: trancationUser,
+				srcImg: user.avatar,
+				number: totalItem
+			})
+			return;
+		}else{
+			let trancationUser = await Trancations.find()
+			res.render("trancations/trancation",{
+				trancations:  trancationUser,
+				srcImg: user.avatar,
+				number: totalItem
 
-exports.indexTrancation  = (req,res) => {
-	const trancations = storeTranscaction;
-	const [userAdmin]  = db.get("users")
-						   .filter({idUser: req.signedCookies.userId * 1})
-						   .value();
-	let {avatar} = db.get("users")
-					 	   .find({idUser: parseInt(req.signedCookies.userId)})
-					       .value();
-	let totalItem = getCountItem(req)
-	if(!userAdmin.isAdmin) {
-		let trancationUser = db.get("trancations")
-							   .filter({name:userAdmin.name})
-							   .value()
-		res.render("trancations/trancation",{
-			trancations: trancationUser,
-			srcImg: avatar,
-			number: totalItem
-		})
-		return;
+			})
+		}
+	}catch(err) {
+		console.log(err)
 	}
-	res.render("trancations/trancation",{
-		trancations,
-		srcImg: avatar,
-	})
 	
 }
 

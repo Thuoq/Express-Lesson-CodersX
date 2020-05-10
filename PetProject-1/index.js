@@ -1,11 +1,21 @@
 require('dotenv').config();
+const mongoose = require('mongoose');
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+/*CONNECT DATABASE*/
+const DB = process.env.DATABASE.replace('<PASSWORD>',process.env.DATABASE_PASSWORD)
+mongoose.connect(DB,{
+	useNewUrlParser: true,
+	useCreateIndex: true, 
+	useFindAndModify: false,
+	useUnifiedTopology: true
+}).then( () => { 
+	console.log("DB connections succesfully")
+}) 
+
 const userRouter = require("./routers/user.router");
 const bookRouter  = require("./routers/book.router");
-const cookieParser = require('cookie-parser');
-
-
 const trancationRouter = require("./routers/transcaction.router");
 const authRouter = require("./routers/auth.router");
 const profileRouter = require("./routers/profile.router");
@@ -22,15 +32,17 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SECRET_KEY))
-
 app.use(middlewareSession);
-app.get("/",(req,res) => {
-	let totalItem = getCountItem(req);
-	res.render("layout",{
-		number : totalItem
-	})
+
+
+app.get("/",async (req,res) => {
+	try{
+		res.render("layout")
+	}catch(err) {
+		console.log(err)
+	}
 })
-app.
+app.	
 	use("/users",
 	middlewareUser.requiredAuth,
 	middlewareUser.isAdmin,
@@ -52,6 +64,11 @@ app.
 		)
 app.
 	use("/checkout",checkoutRouter)
+
+
+
+
 app.listen(process.env.PORT ,(req,res)=> {
 	console.log("Server is Runing on PORT: ",process.env.PORT)
 })
+ 

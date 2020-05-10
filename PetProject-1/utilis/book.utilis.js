@@ -1,17 +1,16 @@
 const db = require("../db");
+const Sessions = require("../models/session.model");
 
-
-const getCountItem = (req) => {
+const getCountItem = async (req) => {
 	const {sessionId} = req.signedCookies;
-	let getCartItem = db.get("sessions")
-		.find({idSession: sessionId * 1}).value().cart;
-	let converCartToArr = Object.keys(getCartItem);
-	let i = 0;
+	let getCartItem = await Sessions.findById(sessionId);
 	let totalItem = 0;
-	while(converCartToArr[i]){
-		totalItem += getCartItem[converCartToArr[i]];
-		i++;
+	if(!getCartItem.cart.length){
+		return totalItem;
 	}
+	getCartItem.cart.forEach(el =>{
+		totalItem += el.quantity;
+	})
 	return totalItem;
 }
 module.exports = getCountItem;

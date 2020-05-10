@@ -1,24 +1,17 @@
 const db = require("../db");
-
-exports.getBookCheckOut = (req) => {
+const Sessions = require("../models/session.model");
+const Users = require("../models/user.model");
+const Books= require("../models/book.model")
+exports.getBookCheckOut = async (req) => {
 	const {sessionId,userId} = req.signedCookies;
-	const book = [];
 	const storeTitle = [];
-	let {cart}  = db.get("sessions").find({idSession: sessionId * 1}).value();
-	let {name} = db.get("users").find({idUser : userId * 1 }).value();
-	let newCartKey = Object.keys(cart);
-	for(let i = 0 ; i  < newCartKey.length ; i ++) {
-		if(db.get("books").find({idBook : newCartKey[i] * 1})){
-			let newBook = Object.assign({},
-										db.get("books")
-										.value()[newCartKey[i] * 1 - 1],
-										{quantity: cart[newCartKey[i]]});
-			storeTitle.push(newBook.title)
-			book.push(newBook)
-		}
-	}
+	let {cart}  = await Sessions.findById(sessionId)
+	let {name} = await Users.findById(userId);
+	cart.forEach(el => {
+		storeTitle.push(el.title)
+	})
 	return {
-		book,
+		cart,
 		name,
 		storeTitle,
 	}

@@ -1,18 +1,16 @@
 const db = require('../db');
-exports.authSignIn  = (req,res) => {
-	const {sessionId} = req.signedCookies;
-	let getCartItem = db.get("sessions")
-		.find({idSession: sessionId * 1}).value().cart;
-	let converCartToArr = Object.keys(getCartItem);
-	let i = 0;
-	let totalItem = 0;
-	while(converCartToArr[i]){
-		totalItem += getCartItem[converCartToArr[i]];
-		i++;
+const Sessions = require("../models/session.model"); 
+const getCountItem = require("../utilis/book.utilis");
+exports.authSignIn  = async (req,res) => {
+	try{
+		const {sessionId} = req.signedCookies;
+		let totalItem = await getCountItem(req)
+			res.render("authentication/signin",{
+			number : totalItem 
+		})
+	} catch(err) {
+		console.log(err);
 	}
-	res.render("authentication/signin",{
-		number : totalItem 
-	})
 }
 exports.authSignInSuceess = (req,res) => {
 	res.redirect("/trancation")

@@ -1,4 +1,5 @@
 const cloudinary = require('cloudinary').v2;
+const Users = require("../models/user.model");
 cloudinary.config({ 
   cloud_name: 'cownut', 
   api_key: '874837483274837', 
@@ -10,24 +11,29 @@ const db = require("../db");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-exports.requiredAuth = (req,res,next) => {
-	if(!req.signedCookies.userId) {
-		res.redirect("/auth");
-		return;
+exports.requiredAuth = async (req,res,next) => {
+	try{
+		if(!req.signedCookies.userId) {
+			res.redirect("/auth");
+			return;
+		}
+		let idUser = await Users.findById(req.signedCookies.userId,(err,adventure) => {
+			console.log(err)
+		})
+		if(!idUser){
+			res.redirect("/auth");
+			return;
+		}
+		res.locals.user = idUser.id;
+		next();
+	} catch(err) {
+		console.log(err)
 	}
-	let idUser = db.get("users").find({
-		idUser: req.signedCookies.userId * 1}).value();
-	if(!idUser){
-		res.redirect("/auth");
-		return;
-	}
-	res.locals.user = idUser;
-	next();
 }
 
 exports.verifyUser = async (req,res,next) => {
 	let{email,name,password} = req.body;
-	let userName = db.get("users").find({email: email}).value();
+	let userName = await Users.findOne({email: email});
 	if(!userName) {
 		res.render("authentication/signin",{
 			errors: [
@@ -45,7 +51,7 @@ exports.verifyUser = async (req,res,next) => {
 		return;
 	}
 	let hash = userName.password;
-	await bcrypt.compare(password, hash, function(err, result) {
+	await bcrypt.compare(password, hash, async function(err, result) {
 			let errors = ["Wrong password !"];
 			let count = userName.isPassword
 			if(count >=4) {
@@ -65,13 +71,14 @@ exports.verifyUser = async (req,res,next) => {
 				return;
 			}else{
 				   if(result) {
-	   				res.cookie('userId', userName.idUser,{
+	   				res.cookie('userId', userName.id,{
 	   					signed:true
 	   				})
-	   				db.get("users").set(`users[${userName.idUser}-1].isPassword`,0)
+	   				await Users.findByIdAndUpdate(userName.id,{isPassword: 0});
+	   				res.locals.user = {name:name}
 	   				next();
 	   			}else{
-	   				db.update(`users[${userName.idUser -1}].isPassword`, n => n + 1 ).write();
+	   				await Users.findByIdAndUpdate(userName.id,{isPassword: count + 1 });
 	   				res.render("authentication/signin",{
 						errors,
 					})
@@ -81,15 +88,11 @@ exports.verifyUser = async (req,res,next) => {
 	});
 }
 
-exports.isAdmin = (req,res,next) => {
-	let idUser  = req.signedCookies.userId *1;
-	let {name,isAdmin} = db.get("users").find({idUser: idUser}).value();
-	const trancationUser = db.get("trancations").filter({name: name}).value();
+exports.isAdmin = async (req,res,next) => {
+	let idUser  = req.signedCookies.userId;
+	let {name,isAdmin} = await Users.findById(idUser);
 	if(!isAdmin) {		
 		res.redirect("/trancation");
-		res.render("trancations/trancation",{
-			trancations: trancationUser
-		})
 		return; 
 	}
 	res.locals.admin = isAdmin;
@@ -98,19 +101,22 @@ exports.isAdmin = (req,res,next) => {
 
 exports.verifyUserSignUp = async (req,res,next) => {
 	const {name,password,confirmPassword,email} = req.body;
-	const {file:{path: avatar}} = req;
-	let newAvatar = avatar.split("\\").slice(1).join('/');
+	let newAvatar = undefined;
+	if(req.file) {
+		const {file:{path: avatar}} = req;
+		newAvatar = avatar.split("\\").slice(1).join('/')
+	}
 	let errors = [];
 	// VERIFY_USER_SIGNUP
 	if(password !== confirmPassword) {
 		errors.push("Don't match password. Please try again");
 		
 	}
-	let isUser = db.get("users").find({name: name}).value();
+	let isUser = await Users.findOne({name:name});
 	if(isUser) {
 		errors.push("Users have exits. Please try another nick name!");
 	}
-	let isEmail = db.get("users").find({email: email}).value();
+	let isEmail = await Users.findOne({email: email});
 	if(isEmail) {
 		errors.push("Users have exits. Please try another nick name!");
 	}
@@ -121,25 +127,31 @@ exports.verifyUserSignUp = async (req,res,next) => {
 		return;  
 	}
 	// SECURITY Create Security PassWord AND STORE IN DATA
-	await bcrypt.hash(password, saltRounds, function(err, hash) {
+	await bcrypt.hash(password, saltRounds, async function(err, hash) {
    			 req.body.password = hash;
-   			 let newIdUser = db.get("users").value().length + 1;
    			 let newUserSignUp =  Object.assign({},{
    			 		isAdmin:false,
-   			 		idUser: newIdUser,
    			 		avatar: newAvatar,
 					isPassword:0,
 					name,
 					password: req.body.password,
 					email});
-   			 db.get("users").push(newUserSignUp).write();
-   			 cloudinary.uploader.upload(newAvatar,{public_id: newIdUserw} ,(error,result)=> {
-   			 			console.log(result);
-   			 });
-   			 res.cookie('userId', newIdUser,{
+   			let userNew = await new Users(newUserSignUp).save();
+   			if(!newAvatar) {
+   				res.cookie('userId', userNew.id,{
 	   					signed:true
 	   				})
-   			 res.locals.user = {name : name};
+	   			res.locals.user = {name: name};
+	   			next();
+	   			return;
+   			}
+   			await cloudinary.uploader.upload(newAvatar,{public_id:userNew.id } ,(error,result)=> {
+   			 
+   			});
+   			 res.cookie('userId', userNew.id,{
+	   					signed:true
+	   				})
+   			 res.locals.user = {name: name};
    			 next();
 	});
 }

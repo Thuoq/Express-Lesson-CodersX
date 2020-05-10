@@ -8,14 +8,15 @@ block content
 			th.text-primary Name Book
 			th.text-primary Quantity
 			th.text-primary Delete 
-		tr
-			each book in books
-				th=book.books
-				th  
+	
+		each book in books
+			tr
+				td=book.books
+				td  
 					a.btn.btn-secondary(href="#") &#60;
 					span.mr-3.ml-3= book.quantity
 					a.btn.btn-secondary(href="#") &#62;
-				th 
+				td 
 					a.btn.btn-secondary(href="#") X
 
 	a.btn.btn-primary.float-right(href="/checkout/rent") Rent Now!

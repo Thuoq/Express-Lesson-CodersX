@@ -1,13 +1,13 @@
 const db = require("../db");
+const Users = require("../models/user.model");
 
-
-exports.verifyCheckOutPage = (req,res,next) => {
+exports.verifyCheckOutPage = async (req,res,next) => {
 	const {userId} = req.signedCookies;
 	if(!userId) {
 		res.redirect("/auth");
 		return;
 	}
-	let {name} = db.get("users").find({idUser : userId * 1 }).value();
+	let {name} = await Users.findById({_id : userId });
 	res.locals.user = {name: name};
 	next();
 }

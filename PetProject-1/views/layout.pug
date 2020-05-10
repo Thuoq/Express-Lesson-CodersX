@@ -29,7 +29,7 @@ html(lang="en")
 					a.nav-link.nav-item(href="/checkout")
 						svg.nav-item(style="width:2rem;height:2rem;fill:#fff;cursor: pointer;")
 							use(xlink:href="../asset-icon/sprite.svg#shopping-cart")
-						span.small.position-absolute.p-1.rounded-circle.text-dark.bg-white(style="top:0%")= number
+						span.small.position-absolute.p-1.rounded-circle.text-dark.bg-white(style="top:0%")= number ? number : 0
 						
 
 		div(class="container")

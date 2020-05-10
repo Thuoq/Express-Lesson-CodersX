@@ -437,6 +437,22 @@
       "cart": {
         "2": 1
       }
+    },
+    {
+      "idSession": 6,
+      "cart": {}
+    },
+    {
+      "idSession": 7,
+      "cart": {}
+    },
+    {
+      "idSession": 8,
+      "cart": {}
+    },
+    {
+      "idSession": 9,
+      "cart": {}
     }
   ]
 }

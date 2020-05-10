@@ -1,15 +1,12 @@
-const db = require("../db");
-module.exports = (req,res,next) => {
-	let getSession = db.get("sessions").value();
+const Sessions  = require("../models/session.model");
+module.exports =  (req,res,next) => {
 	if(!req.signedCookies.sessionId) {
-		let idSession = getSession.length + 1 ;
+		let session = new Sessions();
+		let idSession =  session.id;
 		res.cookie('sessionId', idSession ,{ 
-			signed:true
+			signed: true
 		});
-		db.get("sessions").push({
-			idSession,
-			cart: {},
-		}).write();
+		session.save();
 	}
 	next();
 }

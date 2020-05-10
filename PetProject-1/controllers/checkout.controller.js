@@ -1,25 +1,40 @@
 const db = require("../db");
 const getCountItem = require("../utilis/book.utilis");
 const {getBookCheckOut} = require("../utilis/checkout.utilis");
-exports.indexCheckOutPage = (req,res) => {
+const Users = require("../models/user.model");
+const Trancations = require("../models/trancation.model");
+const Books = require("../models/book.model");
+const Sessions = require("../models/session.model");
+exports.indexCheckOutPage = async (req,res) => {
 	const {userId} = req.signedCookies;
-	let {avatar} = db.get("users").find({idUser : userId * 1 }).value();
-	const books = getBookCheckOut(req).book;
-	const totalItem = getCountItem(req);
+	let {avatar} = await Users.findById(userId);
+	const {cart}  = await getBookCheckOut(req);
+	const totalItem = await getCountItem(req);
 	res.render("checkout/checkout",{
 		number : totalItem,
 		srcImg : avatar,
-		books,
-	})
+		books : cart,
+	})	
 }
-exports.rentCheckOutSucces = (req,res) => {
-	const {name,storeTitle} = getBookCheckOut(req);
+exports.rentCheckOutSucces = async (req,res) => {
+	const {userId,sessionId} = req.signedCookies;
+	const {cart,storeTitle} = await getBookCheckOut(req);
+	const {name,id,isAdmin} = await Users.findById(userId);
+
 	for(let i = 0 ; i < storeTitle.length ; i++) {
-		if(db.get("books").find({title: storeTitle[i]})) {
-			let book = db.get("books").find({title: storeTitle[i]}).value();
-			let newTrancation = Object.assign({}, {name: name}, book);
-			db.get("trancations").push(newTrancation).write();
+		if(Books.findOne({title: storeTitle[i]})) {
+			let book = await Books.findOne({title: storeTitle[i]});
+			let newTrancation = Object.assign({}, {name: name,
+													idUser: userId,
+													idBook :book.id, 
+													isAdmin,
+													quantity: cart[i].quantity,
+													title: book.title,
+													detail: book.detail
+													});
+			await Trancations.create(newTrancation);
 		}
 	}
+	await Sessions.findByIdAndUpdate(sessionId,{cart: []},{new: true})
 	res.redirect("/trancation")
 }
