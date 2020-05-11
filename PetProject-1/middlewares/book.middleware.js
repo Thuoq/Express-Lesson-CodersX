@@ -1,4 +1,3 @@
-const db = require("../db");
 const Users = require("../models/user.model");
 
 exports.verifyCheckOutPage = async (req,res,next) => {

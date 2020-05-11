@@ -1,11 +1,7 @@
-const db = require("../db");
 const getCountItem = require("../utilis/book.utilis");
-const storeTranscaction = db.get("trancations").value();
-const storeBooks = db.get("books").value();
-const storeUsers = db.get("users").value();
 const Trancations = require("../models/trancation.model");
-const takeInforTrancation = require("../utilis/trancations.utilis");	
 const Users = require("../models/user.model");
+const Books = require("../models/book.model");
 exports.indexTrancation  = async (req,res) => {
 	try{
 		const user = await Users.findById(req.signedCookies.userId);
@@ -23,8 +19,8 @@ exports.indexTrancation  = async (req,res) => {
 			res.render("trancations/trancation",{
 				trancations:  trancationUser,
 				srcImg: user.avatar,
-				number: totalItem
-
+				number: totalItem,
+				admin : user.isAdmin
 			})
 		}
 	}catch(err) {
@@ -33,36 +29,32 @@ exports.indexTrancation  = async (req,res) => {
 	
 }
 
-exports.trancationCreate = (req,res) => {
+exports.trancationCreate = async(req,res) => {
+	const users = await Users.find();
+	const books = await Books.find();
 	res.render("trancations/createTrancation",{
-		users:storeUsers,
-		books:storeBooks
+		users,
+		books
 	})
 }
 
-exports.trancationCreatePost = (req,res) => {
+exports.trancationCreatePost = async (req,res) => {
 	let {user,book} = {...req.body};
-	let userTrancations = takeInforTrancation(null,user);
-	let bookTrancations =  takeInforTrancation(book,null)
-	let idTranscation = storeTranscaction.length + 1;
-	let newTrancation = Object.assign({},{idTranscation: idTranscation},
-									bookTrancations,userTrancations);
-	db.get("trancations").push(newTrancation).write();
+	let userExits = await Users.findOne({name: user})
+	let bookExits = await Books.findOne({title:book})
+	let newTrancation = Object.assign({},{
+		idBook: bookExits.id,
+		idUser: userExits.id,
+		name: userExits.name,
+		isAdmin: userExits.isAdmin,
+		title: bookExits.title,
+		detail: bookExits.detail,
+	});
+	await Trancations.create(newTrancation);
 	res.redirect("/trancation");
 }
 
-exports.transcactionCompelete = (req,res) => {
-	let idCompelete = req.params.id * 1;
-	const trancations = storeTranscaction;
-	if(idCompelete > storeTranscaction.length) {
-		res.render("trancations/trancation",{
-			trancations,
-			id: idCompelete
-		})	
-		return;
-	}
-	db.get("trancations")
-	  .remove({idTranscation: idCompelete})
-	  .write();
-	res.render("trancations/compeleteTrancation")
+exports.transcactionCompelete = async (req,res) => {
+	await Trancations.findByIdAndRemove(req.params.id);
+	res.redirect("/trancation")
 }

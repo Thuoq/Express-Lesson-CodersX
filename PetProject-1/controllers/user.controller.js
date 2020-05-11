@@ -1,58 +1,33 @@
 const bcrypt = require('bcrypt');
-const db = require("../db");
+const Users = require("../models/user.model");
 const saltRounds = 10;
-const storeUsers = db.get("users").value();
-exports.indexUser = (req,res) => {
-	let currentUsers = storeUsers
+exports.indexUser = async (req,res) => {
+	let currentUsers = await Users.find();
+	let user = await Users.findById(req.signedCookies.userId)
 	res.render("users/users",{
-		users : currentUsers
+		users : currentUsers,
+		srcImg : user.avatar,
+		user,
 	}) 
 }
-
 exports.userCreate =(req,res) => {
 	res.render("users/createUser")
 }
-
-exports.userCreatePost = async (req,res) => {
-	let newIdUser = storeUsers.length +1;
+exports.userCreatePost = async (req,res) => {	
 	let query = {...req.body};
-	await bcrypt.hash(query.password, saltRounds, function(err, hash) {
+	await bcrypt.hash(query.password, saltRounds, async function(err, hash) {
 		query.password = hash;
-   	 	let newUser = Object.assign({},{idUser: newIdUser},query,{isAdmin:false,isPassword:0});
-		db.get("users").push(newUser).write();
+   	 	let newUser = Object.assign({},query,{isAdmin:false,isPassword:0});
+		await Users.create(newUser);
 		res.redirect("/users");
 	});
-	
 }
-
-
-exports.userEdit = (req,res) => {
-	const idUser = req.params.id * 1;
-	let user  = storeUsers.filter( el => el.idUser === idUser)
-	res.render("users/editNameUser",{
-		users: user
-	})
-}
-
-exports.userEditPost = (req,res) => {
-	let newUserName = req.body.edit;
-	let idUser = req.params.id * 1;
-	let bookUpdate = {}
-	for(let i = 0 ; i < storeUsers.length ; i ++) {
-		if(idUser === storeUsers[i].idUser) {
-			bookUpdate = storeUsers[i]
-		} 
-	}  
-	
-	db.get('users')
-	  .find({ name: bookUpdate.name })
-	  .assign({ name: newUserName})
-	  .write()
+exports.userUptoAdmin = async (req,res ) => {
+	await Users.findByIdAndUpdate(req.params.id,{isAdmin: true});
 	res.redirect("/users")
 }
 
-exports.userDelete = (req,res) => {
-	const idUser = req.params.id * 1 ; 
-	db.get("users").remove({idUser: idUser}).write();
-	res.redirect("/")
+exports.userDelete = async (req,res) => {
+	await Users.findByIdAndRemove(req.params.id);
+	res.redirect("/users")
 }

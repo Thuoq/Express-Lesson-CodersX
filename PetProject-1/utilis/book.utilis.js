@@ -1,4 +1,3 @@
-const db = require("../db");
 const Sessions = require("../models/session.model");
 
 const getCountItem = async (req) => {

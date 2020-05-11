@@ -23,7 +23,8 @@ const middlewareSession = require("./middlewares/session.middleware");
 const middlewareUser = require("./middlewares/auth.middleware");
 const getCountItem  = require("./utilis/book.utilis");
 const checkoutRouter = require("./routers/checkout.router");
-
+const signInApiRouter = require("./api/router/signin.router");
+const trancationApiRouter = require("./api/router/trancation.router");
 
 const app = express();
 app.set('view engine', 'pug');
@@ -43,6 +44,11 @@ app.get("/",async (req,res) => {
 		console.log(err)
 	}
 })
+app
+   .use("/api",signInApiRouter)
+
+app
+	.use("/api",trancationApiRouter)
 app.	
 	use("/users",
 	middlewareUser.requiredAuth,

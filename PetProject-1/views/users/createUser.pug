@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-	h2 Please Type User
+	h2.text-white Please Type User
 	if name 
 		.alert.alert-danger= "Name Too Long Please Type Again"
 	form(action="/users/create",method="POST")

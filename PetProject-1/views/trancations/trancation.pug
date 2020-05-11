@@ -3,7 +3,7 @@ extends ../layout
 block content
 	h1(class="mb-3 text-white") This is All Your Transcation
 	if admin 
-		a.text-white(href="/trancation/create") Create New Transcation
+		a.text-white.btn.btn-primary.mb-3(href="/trancation/create") Create New Transcation
 	if id 
 		.alert.alert-danger= "ID " +  id +" Not Found " 
 	table.table.text-white.bg-dark
@@ -16,5 +16,5 @@ block content
 				td= el.name + " mượn quyển sách " + el.title
 				if admin
 					td
-						a(href="/trancation/" + el.idTranscation+"/compelete",class="btn btn-primary") Compelete
+						a(href="/trancation/" + el.id+"/compelete",class="btn btn-primary") Compelete
 

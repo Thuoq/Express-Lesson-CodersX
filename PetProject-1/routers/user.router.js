@@ -9,9 +9,7 @@ router.get("/create",userController.userCreate)
 
 router.post("/create",middleware.validationUser,userController.userCreatePost)
 
-router.get("/:id/edit",userController.userEdit)
-
-router.post("/:id/edit",userController.userEditPost)
+router.get("/:id/admin",userController.userUptoAdmin)
 
 router.get('/:id/delete',userController.userDelete)
 
