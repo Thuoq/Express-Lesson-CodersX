@@ -12,6 +12,9 @@ router
 	.get("/:id/increase",checkOutController.increaseBook)
 router
 	.get("/:id/decrease",checkOutController.decreaseBook)
+
+router
+	.get("/:id/delete",checkOutController.deleteBook)
 router
 	.get("/rent",
 		middlewareBooks.verifyCheckOutPage,

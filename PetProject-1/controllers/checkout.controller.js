@@ -33,7 +33,7 @@ exports.rentCheckOutSucces = async (req,res) => {
 													detail: book.detail
 													});
 			await Trancations.create(newTrancation);
-		}
+		} 
 	}
 	await Sessions.findByIdAndUpdate(sessionId,{cart: []},{new: true})
 	res.redirect("/trancation")
@@ -42,9 +42,8 @@ exports.rentCheckOutSucces = async (req,res) => {
 exports.increaseBook = async (req,res) => {
 	const {sessionId} = req.signedCookies;
 	const idBook = req.params.id;
-	let {books} = await Books.findById(idBook)
 	let {cart} = await Sessions.findById(sessionId);
-	cart.map(el => el.books === books ? el.quantity += 1 : el)
+	cart.map(el => el.idBook.toString() === idBook ? el.quantity += 1 : el)
 	await Sessions.findByIdAndUpdate(sessionId,
 		{cart : cart},
 		{new: true});
@@ -53,15 +52,29 @@ exports.increaseBook = async (req,res) => {
 exports.decreaseBook = async (req,res) => {
 	const {sessionId} = req.signedCookies;
 	const idBook = req.params.id;
-	let {books} = await Books.findById(idBook)
 	let {cart} = await Sessions.findById(sessionId);
-	const exitsCart = cart.find(el => el.books === books);
+	const exitsCart = cart.find(el => el.idBook.toString() === idBook);
 	if(exitsCart.quantity === 1) {
-		cart = cart.filter(el => el.books !== books);
+		cart = cart.filter(el => el.idBook !== idBook);
 	}
-	cart.map(el => el.books === books ? el.quantity -= 1 : el)
+	cart.map(el => el.idBook.toString() === idBook ? el.quantity -= 1 : el)
 	await Sessions.findByIdAndUpdate(sessionId,
 		{cart : cart},
 		{new: true});
 	res.redirect("/checkout")
+}
+
+exports.deleteBook = async (req,res) => {
+	const {sessionId} = req.signedCookies;
+	const idBook = req.params.id;
+	let {cart} = await Sessions.findById(sessionId);
+	const exitsBook = cart.find( el => el.idBook.toString() === idBook);
+	if(exitsBook){
+		cart = cart.filter(el => el.idBook.toString() !== idBook)
+	}
+	await Sessions.findByIdAndUpdate(sessionId,
+		{cart : cart},
+		{new: true});
+	res.redirect("/checkout")
+
 }

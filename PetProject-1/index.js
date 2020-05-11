@@ -29,6 +29,7 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SECRET_KEY))
@@ -37,7 +38,7 @@ app.use(middlewareSession);
 
 app.get("/",async (req,res) => {
 	try{
-		res.render("layout")
+		res.render("index")
 	}catch(err) {
 		console.log(err)
 	}

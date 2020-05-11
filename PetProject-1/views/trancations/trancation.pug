@@ -1,14 +1,14 @@
 extends ../layout
 
 block content
-	h1(class="mb-3") This is All Your Transcation
+	h1(class="mb-3 text-white") This is All Your Transcation
 	if admin 
-		a(href="/trancation/create") Create New Transcation
+		a.text-white(href="/trancation/create") Create New Transcation
 	if id 
 		.alert.alert-danger= "ID " +  id +" Not Found " 
-	table.table
+	table.table.text-white.bg-dark
 		tr
-			th Trancation
+			th.text-primary.bg-tran Trancation
 			if admin
 				th Compelete
 		each el in trancations
