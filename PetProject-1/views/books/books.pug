@@ -17,14 +17,14 @@ block content
 					h5(class="card-title font-weight-bold")= book.books
 					p(class="card-text font-weight-bold text-white")= book.title
 					a(href="/books/" + book.id,class="btn btn-primary mr-3 ") View Book
-					a(href="/books/add/" + book.id,class="btn btn-primary ") Add Item To Cart
-					if isAdmin
-						a(href="/books/"+ book.id +"/edit",class="btn btn-primary ") Edit Title Book
-						a(href="/books/"+ book.id + "/delete",class="btn btn-primary ") Delete Book
+					if !user
+						a(href="/books/add/" + book.id,class="btn btn-primary ") Add Item To Cart
+					else if book.idUser.toString() !== user.id || user.isAdmin
+						a(href="/books/add/" + book.id,class="btn btn-primary ") Add Item To Cart
 	nav(aria-label="...")
 		ul(class="pagination pagination-lg float-right")
 			- var n = 1;
-			while n <  (4)
+			while n <  (5)
 				if page[0] === n 
 					li(class= "page-item active")
 						a(class="page-link ",href="?page=" + n,tabindex="-1",method="POST")= n++

@@ -15,11 +15,11 @@ exports.indexCheckOutPage = async (req,res) => {
 		srcImg : avatar,
 		books : cart,
 	})	
-}
+} 
 exports.rentCheckOutSucces = async (req,res) => {
 	const {userId,sessionId} = req.signedCookies;
 	const {cart,storeTitle} = await getBookCheckOut(req);
-	const {name,id,isAdmin} = await Users.findById(userId);
+	const {name,isAdmin} = await Users.findById(userId);
 
 	for(let i = 0 ; i < storeTitle.length ; i++) {
 		if(Books.findOne({title: storeTitle[i]})) {
@@ -55,7 +55,12 @@ exports.decreaseBook = async (req,res) => {
 	let {cart} = await Sessions.findById(sessionId);
 	const exitsCart = cart.find(el => el.idBook.toString() === idBook);
 	if(exitsCart.quantity === 1) {
-		cart = cart.filter(el => el.idBook !== idBook);
+		cart = cart.filter(el => el.idBook.toString() !== idBook);
+		await Sessions.findByIdAndUpdate(sessionId,
+		{cart : cart},
+		{new: true});
+		res.redirect("/checkout")
+		return;
 	}
 	cart.map(el => el.idBook.toString() === idBook ? el.quantity -= 1 : el)
 	await Sessions.findByIdAndUpdate(sessionId,

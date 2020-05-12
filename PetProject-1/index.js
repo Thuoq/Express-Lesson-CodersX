@@ -25,12 +25,14 @@ const getCountItem  = require("./utilis/book.utilis");
 const checkoutRouter = require("./routers/checkout.router");
 const signInApiRouter = require("./api/router/signin.router");
 const trancationApiRouter = require("./api/router/trancation.router");
-
+const bookApiRouter = require("./api/router/book.router");
+const Books = require("./models/book.model");
+const ownShopRouter = require("./routers/ownshop.router");
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', './views');
+
 app.use(express.static('public'));
-app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SECRET_KEY))
@@ -49,8 +51,11 @@ app
 
 app
 	.use("/api",trancationApiRouter)
+app
+	.use("/api",bookApiRouter)
 app.	
 	use("/users",
+		express.static('public'),
 	middlewareUser.requiredAuth,
 	middlewareUser.isAdmin,
 	userRouter);
@@ -66,15 +71,17 @@ app.
 	authRouter)
 app.
 	use("/profile",
+		express.static('public'),
 		middlewareUser.requiredAuth,
 		profileRouter
-		)
+		) 
 app.
 	use("/checkout",checkoutRouter)
-
-
-
-
+app.
+	use("/shop",
+		middlewareUser.requiredAuth,
+		express.static('public'),
+		ownShopRouter)
 app.listen(process.env.PORT ,(req,res)=> {
 	console.log("Server is Runing on PORT: ",process.env.PORT)
 })

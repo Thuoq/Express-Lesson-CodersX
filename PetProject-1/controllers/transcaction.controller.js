@@ -2,18 +2,44 @@ const getCountItem = require("../utilis/book.utilis");
 const Trancations = require("../models/trancation.model");
 const Users = require("../models/user.model");
 const Books = require("../models/book.model");
+const {getDataTrancationsClient}  = require("../utilis/trancations.utilis");
 exports.indexTrancation  = async (req,res) => {
 	try{
 		const user = await Users.findById(req.signedCookies.userId);
 		let totalItem = await getCountItem(req)
 		if(!user.isAdmin) {
-			let trancationUser = await Trancations.find({name: user.name})
-			res.render("trancations/trancation",{
-				trancations: trancationUser,
-				srcImg: user.avatar,
-				number: totalItem
-			})
-			return;
+			let trancationUser = await Trancations.find({name: user.name});
+			let bookUser = await Books.find({idUser: req.signedCookies.userId })
+			let getTrancationClient = await getDataTrancationsClient(bookUser);
+			if(!getTrancationClient.length){
+				res.render("trancations/trancation",{
+					trancations: trancationUser,
+					srcImg: user.avatar,
+					number: totalItem,
+					user
+				})
+				return;
+			}
+			else {
+				if(getTrancationClient[0].name !== user.name) {
+					res.render("trancations/trancation",{
+						trancations: trancationUser,
+						srcImg: user.avatar,
+						number: totalItem,
+						user,
+						trancationBrrowUsers: getTrancationClient
+					})
+					return;	
+				}else{
+				res.render("trancations/trancation",{
+					trancations: trancationUser,
+					srcImg: user.avatar,
+					number: totalItem,
+					user
+				})
+					return;
+				}
+			}
 		}else{
 			let trancationUser = await Trancations.find()
 			res.render("trancations/trancation",{

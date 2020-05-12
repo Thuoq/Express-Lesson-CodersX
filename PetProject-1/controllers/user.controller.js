@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const Users = require("../models/user.model");
 const saltRounds = 10;
+const Books = require("../models/book.model");
 exports.indexUser = async (req,res) => {
 	let currentUsers = await Users.find();
 	let user = await Users.findById(req.signedCookies.userId)

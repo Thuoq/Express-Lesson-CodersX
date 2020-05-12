@@ -10,6 +10,7 @@ router
 	.get("/",profileController.indexProfile)
 router
 	.post("/",
+		express.static('public'),
 		upload.single('avatar'),
 		profileController.postEditProfile)
 

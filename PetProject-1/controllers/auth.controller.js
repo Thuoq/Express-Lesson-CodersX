@@ -19,7 +19,15 @@ exports.authSignOut = (req,res) => {
 	res.clearCookie("userId");
 	res.redirect("/auth");
 }
-exports.authSignUp = (req,res) => {
-	res.render("authentication/signup")
+exports.authSignUp = async (req,res) => {
+	try{
+		const {sessionId} = req.signedCookies;
+		let totalItem = await getCountItem(req)
+		res.render("authentication/signup",{
+			number : totalItem 
+		})
+	} catch(err){
+		console.log(err)
+	}
 }
 

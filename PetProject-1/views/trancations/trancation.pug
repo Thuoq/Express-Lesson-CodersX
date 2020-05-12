@@ -1,7 +1,9 @@
 extends ../layout
 
 block content
-	h1(class="mb-3 text-white") This is All Your Transcation
+	h1(class="mb-3 text-white") This is All Your Transcation  
+		if !admin
+			span.text-light.font-weight-bold.bg-secondary Book You Borrow
 	if admin 
 		a.text-white.btn.btn-primary.mb-3(href="/trancation/create") Create New Transcation
 	if id 
@@ -17,4 +19,17 @@ block content
 				if admin
 					td
 						a(href="/trancation/" + el.id+"/compelete",class="btn btn-primary") Compelete
+	if !admin
+		h1(class="mb-3 text-white") This is All Your Transcation
+			span.text-light.font-weight-bold.bg-secondary Book You UpLoad
+		table.table.text-white.bg-dark
+			tr
+				th.text-primary.bg-tran Trancation
+				th Compelete
+			if trancationBrrowUsers
+				each val, index in trancationBrrowUsers
+					tr
+						td= val.name + " mượn quyển sách " + val.title + " của bạn"
+						td
+							a(href="/trancation/" + val.id+"/compelete",class="btn btn-primary") Compelete
 

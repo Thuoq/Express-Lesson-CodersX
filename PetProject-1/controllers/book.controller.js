@@ -11,7 +11,7 @@ exports.indexBook = async (req,res)=> {
 	let inFormationUser = await Users.findOne({_id: userId })
 	/*Panitaion*/
 	let page = parseInt(req.query.page) || 1;
-	let perPage = 9;
+	let perPage = 12;
 	let start = (page - 1 ) * perPage; 
 	let end = page * perPage;
 	let totalPage = Math.ceil(storeBooks.lenth / perPage)
@@ -24,7 +24,7 @@ exports.indexBook = async (req,res)=> {
 			page: [page],
 			srcImg : inFormationUser.avatar,
 			user  : inFormationUser,
-			number : totalItem
+			number : totalItem,
 		})
 	}else{
 		res.render("books/books",{

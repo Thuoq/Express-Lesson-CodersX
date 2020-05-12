@@ -5,7 +5,7 @@ const trancationSchema = mongoose.Schema({
 	idUser: mongoose.ObjectId,
 	idBook: mongoose.ObjectId,
 	name: String,
-	isAdmin: Boolean,
+	isAdmin: Boolean, 
 	title: String,
 	detail: String,
 	quantity: Number
