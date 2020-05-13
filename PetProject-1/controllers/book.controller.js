@@ -5,33 +5,38 @@ const Users = require("../models/user.model");
 const storeBooks = db.get("books").value();
 const getCountItem = require("../utilis/book.utilis");
 
-exports.indexBook = async (req,res)=> {
-	let {userId} = req.signedCookies;
-	let storeBooks = await Books.find()
-	let inFormationUser = await Users.findOne({_id: userId })
-	/*Panitaion*/
-	let page = parseInt(req.query.page) || 1;
-	let perPage = 12;
-	let start = (page - 1 ) * perPage; 
-	let end = page * perPage;
-	let totalPage = Math.ceil(storeBooks.length / perPage)
-	let books = storeBooks.slice(start,end);
-	let totalItem = await getCountItem(req);
-	/*********/
-	if(inFormationUser){
-		res.render("books/books",{
-			books,
-			page: [page],
-			srcImg : inFormationUser.avatar,
-			user  : inFormationUser,
-			number : totalItem,
-		})
-	}else{
-		res.render("books/books",{
-			books,
-			page: [page],
-			number : totalItem
-		})
+exports.indexBook = async (req,res,next)=> {
+	try{
+		let {userId} = req.signedCookies;
+		let storeBooks = await Books.find()
+		let inFormationUser = await Users.findOne({_id: userId })
+		/*Panitaion*/
+		let page = parseInt(req.query.page) || 1;
+		let perPage = 12;
+		let start = (page - 1 ) * perPage; 
+		let end = page * perPage;
+		let totalPage = Math.ceil(storeBooks.length / perPage)
+		let books = storeBooks.slice(start,end);
+		let totalItem = await getCountItem(req);
+		/*********/
+		if(inFormationUser){
+			res.render("books/books",{
+				books,
+				page: [page],
+				srcImg : inFormationUser.avatar,
+				user  : inFormationUser,
+				number : totalItem,
+			})
+		}else{
+			res.render("books/books",{
+				books,
+				page: [page],
+				number : totalItem
+			})
+		}
+	} catch(error) {
+		res.render("error");
+		next(error)
 	}
 }
 
@@ -84,60 +89,69 @@ exports.bookEditPost = (req,res) => {
 }
 
 exports.countItemToCart = async (req,res) => {
-	let idBook  = req.params.id ;
-	let {sessionId} = req.signedCookies;
-	if(!sessionId) {
-		res.redirect('/books');
-		return
+	try{
+		let idBook  = req.params.id ;
+		let {sessionId} = req.signedCookies;
+		if(!sessionId) {
+			res.redirect('/books');
+			return
+		}
+		let {books,title,image,detail,id} = await Books.findById(idBook);
+		let {cart} = await Sessions.findById(sessionId);
+		if(cart.find(el => el.books === books)) {
+			 cart.map(el => el.books === books ? el.quantity += 1 : el)
+		}else{
+			let newBooks =  Object.assign({},{quantity:
+					 1,books,title,image,detail,idBook: id})
+			cart.push(newBooks);
+		}
+		await Sessions.findByIdAndUpdate(sessionId,
+			{cart : cart},
+			{new: true});
+		res.redirect("/books"); 
+	} catch(erorr) {
+		console.log(error)
+		res.render("error");
 	}
-	let {books,title,image,detail,id} = await Books.findById(idBook);
-	let {cart} = await Sessions.findById(sessionId);
-	if(cart.find(el => el.books === books)) {
-		 cart.map(el => el.books === books ? el.quantity += 1 : el)
-	}else{
-		let newBooks =  Object.assign({},{quantity:
-				 1,books,title,image,detail,idBook: id})
-		cart.push(newBooks);
-	}
-	await Sessions.findByIdAndUpdate(sessionId,
-		{cart : cart},
-		{new: true});
-	res.redirect("/books"); 
 }
 
 
 exports.searchBook = async (req,res) => {
-	const {title} = req.body;
-	let {userId} = req.signedCookies;
-	const getBooks = await Books.find();
-	const  storeBooks = [];
-	for(let i = 0 ; i < getBooks.length ; i ++) {
-		if(getBooks[i].books.toLowerCase().includes(title.toLowerCase())) {
-			storeBooks.push(getBooks[i])
+	try{
+		const {title} = req.body;
+		let {userId} = req.signedCookies;
+		const getBooks = await Books.find();
+		const  storeBooks = [];
+		for(let i = 0 ; i < getBooks.length ; i ++) {
+			if(getBooks[i].books.toLowerCase().includes(title.toLowerCase())) {
+				storeBooks.push(getBooks[i])
+			}
 		}
-	}
-	let inFormationUser = await Users.findById(userId)
-	/*Panitaion*/
-	let page = parseInt(req.query.page) || 1;
-	let perPage = 12;
-	let start = (page - 1 ) * perPage; 
-	let end = page * perPage;
-	let totalPage = Math.ceil(storeBooks.length / perPage)
-	let books = storeBooks.slice(start,end);
-	let totalItem = await getCountItem(req);
-	if(inFormationUser) {
-		res.render("books/books",{
-			books,
-			page: [page],
-			srcImg : inFormationUser.avatar,
-			user  : inFormationUser,
-			number : totalItem,
-		})
-	}else{
-		res.render("books/books",{
-			books,
-			page: [page],
-			number : totalItem
-		})
+		let inFormationUser = await Users.findById(userId)
+		/*Panitaion*/
+		let page = parseInt(req.query.page) || 1;
+		let perPage = 12;
+		let start = (page - 1 ) * perPage; 
+		let end = page * perPage;
+		let totalPage = Math.ceil(storeBooks.length / perPage)
+		let books = storeBooks.slice(start,end);
+		let totalItem = await getCountItem(req);
+		if(inFormationUser) {
+			res.render("books/books",{
+				books,
+				page: [page],
+				srcImg : inFormationUser.avatar,
+				user  : inFormationUser,
+				number : totalItem,
+			})
+		}else{
+			res.render("books/books",{
+				books,
+				page: [page],
+				number : totalItem
+			})
+		}
+	} catch(error) {
+		res.render("error");
 	}
 }
