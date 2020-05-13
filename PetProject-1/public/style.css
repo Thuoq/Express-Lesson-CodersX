@@ -33,3 +33,6 @@ body{
 	font-weight: 600;
 	padding: 0.5rem 2.5rem;
 }
+img {
+	overflow: hidden;
+}

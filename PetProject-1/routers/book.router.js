@@ -15,5 +15,6 @@ router.post("/:id/edit",bookController.bookEditPost)
 
 router.get("/add/:id",bookController.countItemToCart)
 
+router.post("/",bookController.searchBook)
 
 module.exports = router;

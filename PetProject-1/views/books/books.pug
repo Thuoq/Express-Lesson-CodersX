@@ -4,15 +4,15 @@ block content
 	h1.text-white Welcome to Library Books
 	if isAdmin
 		a(href="/books/create") Create New Books 
-	form(action="/search",class="float-right mb-3 clearfix")
-		input(type="text",name="name",class="mr-3 form")
-		btn(class="btn btn-primary") Search
+	form(action="/books",method="POST",class="float-right mb-3 clearfix")
+		input(type="text",name="title",class="mr-3 form")
+		button(class="btn btn-primary",type="submit") Search
 	
 	.row(style="margin-top:10rem")
 		each book in books
 			.col-md-4.col-sm-6
 				.card(style="width:18rem;height:18rem")
-					img(class="card-img-top",src=book.image,alt="Card image cap")
+					img(class="card-img-top img-fluid ",width="250",height="300px",src=book.image,alt="Card image cap")
 				.card-body.text-white
 					h5(class="card-title font-weight-bold")= book.books
 					p(class="card-text font-weight-bold text-white")= book.title

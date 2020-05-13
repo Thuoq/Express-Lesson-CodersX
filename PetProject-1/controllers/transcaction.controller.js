@@ -46,7 +46,8 @@ exports.indexTrancation  = async (req,res) => {
 				trancations:  trancationUser,
 				srcImg: user.avatar,
 				number: totalItem,
-				admin : user.isAdmin
+				admin : user.isAdmin,
+				user,
 			})
 		}
 	}catch(err) {
@@ -56,11 +57,14 @@ exports.indexTrancation  = async (req,res) => {
 }
 
 exports.trancationCreate = async(req,res) => {
+	const user = await Users.findById(req.signedCookies.userId);
 	const users = await Users.find();
 	const books = await Books.find();
 	res.render("trancations/createTrancation",{
 		users,
-		books
+		books,
+		user,
+		srcImg: user.avatar
 	})
 }
 
