@@ -7,7 +7,7 @@ exports.indexUser = async (req,res) => {
 	let user = await Users.findById(req.signedCookies.userId)
 	res.render("users/users",{
 		users : currentUsers,
-		srcImg : user.avatar,
+		srcImg : user.avatarUrl,
 		user,
 	}) 
 }

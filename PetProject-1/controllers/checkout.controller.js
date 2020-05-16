@@ -7,12 +7,12 @@ const Books = require("../models/book.model");
 const Sessions = require("../models/session.model");
 exports.indexCheckOutPage = async (req,res) => {
 	const {userId} = req.signedCookies;
-	let {avatar} = await Users.findById(userId);
+	let {avatarUrl} = await Users.findById(userId);
 	const {cart}  = await getBookCheckOut(req);
 	const totalItem = await getCountItem(req);
 	res.render("checkout/checkout",{
 		number : totalItem,
-		srcImg : avatar,
+		srcImg : avatarUrl,
 		books : cart,
 	})	
 } 

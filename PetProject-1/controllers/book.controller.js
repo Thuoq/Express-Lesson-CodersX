@@ -23,7 +23,7 @@ exports.indexBook = async (req,res,next)=> {
 			res.render("books/books",{
 				books,
 				page: [page],
-				srcImg : inFormationUser.avatar,
+				srcImg : inFormationUser.avatarUrl,
 				user  : inFormationUser,
 				number : totalItem,
 			})
@@ -140,7 +140,7 @@ exports.searchBook = async (req,res) => {
 			res.render("books/books",{
 				books,
 				page: [page],
-				srcImg : inFormationUser.avatar,
+				srcImg : inFormationUser.avatarUrl,
 				user  : inFormationUser,
 				number : totalItem,
 			})

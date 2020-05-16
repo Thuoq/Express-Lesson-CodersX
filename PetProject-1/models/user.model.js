@@ -16,9 +16,12 @@ const userSchema =  new mongoose.Schema({
 	},
 	isAdmin: Number,
 	isPassword: Number,
-	avatar: {
+	avatarUrl: {
 		type: String,
-		default: "uploads/ebc40d0a25b2e7d8b73b703f3ee1baf0"
+		default: "http://res.cloudinary.com/cownut/image/upload/v1589649822/bcmbmhvlzhngqjwzyrdq.jpg"
+	},
+	avatarPath : {
+		type: String
 	}
 })
 

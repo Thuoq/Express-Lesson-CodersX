@@ -3,15 +3,15 @@ const Users = require("../models/user.model");
 const Trancations = require("../models/trancation.model");
 cloudinary.config({ 
   cloud_name: 'cownut', 
-  api_key: '874837483274837', 
+  api_key: '155544378361913', 
   api_secret: process.env.SECRET_KEY_CLOUDINARY, 
 });
 exports.indexProfile = async (req,res)=> {
-	let {userId} = req.signedCookies;
-	let inFormationUser = await Users.findById(userId);
-	res.render("profile/profile",{
-		inFormationUser,
-		srcImg: inFormationUser.avatar,
+		let {userId} = req.signedCookies;
+		let inFormationUser = await Users.findById(userId);
+		res.render("profile/profile",{
+			inFormationUser,
+		srcImg: inFormationUser.avatarUrl,
 		user: inFormationUser
 	})
 } 
@@ -33,12 +33,19 @@ exports.postEditProfile = async (req,res) => {
 		
 	}else{
 		let {file:{path: avatar}} = req;
-		let newAvatar = avatar.split("\\").slice(1).join('/');
-		inFormationUser.avatar = newAvatar;
-		await Users.findByIdAndUpdate(userId,{name,email,avatar: newAvatar})
+		let avatarUrl  = undefined;
+		let avatarPath = undefined;
+		await cloudinary.uploader.upload(avatar,(err, result) => {
+	   				avatarUrl = result.url;
+	   				avatarPath = avatar.split("\\").slice(1).join('/');
+	   	});
+
+		
+		inFormationUser.avatarUrl = avatarUrl;
+		await Users.findByIdAndUpdate(userId,{name,email,avatarUrl,avatarPath})
 			res.render("profile/profile",{
 			inFormationUser,
-			srcImg: newAvatar,
+			srcImg: avatarUrl,
 			sucess: true,
 			user: inFormationUser
 		})

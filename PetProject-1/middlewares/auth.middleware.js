@@ -2,7 +2,7 @@ const cloudinary = require('cloudinary').v2;
 const Users = require("../models/user.model");
 cloudinary.config({ 
   cloud_name: 'cownut', 
-  api_key: '874837483274837', 
+  api_key: '155544378361913', 
   api_secret: process.env.SECRET_KEY_CLOUDINARY, 
 });
 const bcrypt = require('bcrypt');
@@ -102,11 +102,6 @@ exports.isAdmin = async (req,res,next) => {
 exports.verifyUserSignUp = async (req,res,next) => {
 	try{
 		const {name,password,confirmPassword,email} = req.body;
-		let newAvatar = undefined;
-		if(req.file) {
-			const {file:{path: avatar}} = req;
-			newAvatar = avatar.split("\\").slice(1).join('/')
-		}
 		let errors = [];
 		// VERIFY_USER_SIGNUP
 		if(password !== confirmPassword) {
@@ -127,19 +122,30 @@ exports.verifyUserSignUp = async (req,res,next) => {
 			})
 			return;  
 		}
-		// SECURITY Create Security PassWord AND STORE IN DATA
+		let avatarUrl = undefined;
+		let avatarPath = undefined
+		if(req.file) {
+			const {file:{path: avatar}} = req;
+			await cloudinary.uploader.upload(avatar,(err, result) => {
+	   				avatarUrl = result.url;
+	   			});
+			avatarPath = avatar.split("\\").slice(1).join('/')
+		}
+
+		//SECURITY Create Security PassWord AND STORE IN DATA
 		await bcrypt.hash(password, saltRounds, async function(err, hash) {
 			try{
 	   			 req.body.password = hash;
 	   			 let newUserSignUp =  Object.assign({},{
 	   			 		isAdmin:false,
-	   			 		avatar: newAvatar,
+	   			 		avatarUrl,
+	   			 		avatarPath,
 						isPassword:0,
 						name,
 						password: req.body.password,
 						email});
 	   			let userNew = await new Users(newUserSignUp).save();
-	   			if(!newAvatar) {
+	   			if(!avatarPath) {
 	   				res.cookie('userId', userNew.id,{
 		   					signed:true
 		   				})
@@ -147,9 +153,7 @@ exports.verifyUserSignUp = async (req,res,next) => {
 		   			next();
 		   			return;
 	   			}
-	   			await cloudinary.uploader.upload(newAvatar,(err, result) => {
-	   				console.log(result,err)
-	   			});
+	   			
 	   			 res.cookie('userId', userNew.id,{
 		   					signed:true
 		   				})

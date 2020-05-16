@@ -6,7 +6,7 @@ block content
 		div(class="alert alert-dark text-dark",role="alert")= "Your infor had changed"
 	div(class="d-flex text-white justify-content-around align-items-center")
 		div
-			img(class="rounded-circle",width=250,height=250,alt="YOUR PROFILE", src= inFormationUser ? inFormationUser.avatar : undefined)
+			img(class="rounded-circle",width=250,height=250,alt="YOUR PROFILE", src= inFormationUser ? inFormationUser.avatarUrl : undefined)
 		form(action="/profile",class="float-left text-white",method="POST",enctype="multipart/form-data")
 			div(class="form-group")
 				label(for="exampleInputEmail3") Your Email address

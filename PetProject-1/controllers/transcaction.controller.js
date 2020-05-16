@@ -14,7 +14,7 @@ exports.indexTrancation  = async (req,res) => {
 			if(!getTrancationClient.length){
 				res.render("trancations/trancation",{
 					trancations: trancationUser,
-					srcImg: user.avatar,
+					srcImg: user.avatarUrl,
 					number: totalItem,
 					user
 				})
@@ -24,7 +24,7 @@ exports.indexTrancation  = async (req,res) => {
 				if(getTrancationClient[0].name !== user.name) {
 					res.render("trancations/trancation",{
 						trancations: trancationUser,
-						srcImg: user.avatar,
+						srcImg: user.avatarUrl,
 						number: totalItem,
 						user,
 						trancationBrrowUsers: getTrancationClient
@@ -33,7 +33,7 @@ exports.indexTrancation  = async (req,res) => {
 				}else{
 				res.render("trancations/trancation",{
 					trancations: trancationUser,
-					srcImg: user.avatar,
+					srcImg: user.avatarUrl,
 					number: totalItem,
 					user
 				})
@@ -44,7 +44,7 @@ exports.indexTrancation  = async (req,res) => {
 			let trancationUser = await Trancations.find()
 			res.render("trancations/trancation",{
 				trancations:  trancationUser,
-				srcImg: user.avatar,
+				srcImg: user.avatarUrl,
 				number: totalItem,
 				admin : user.isAdmin,
 				user,
@@ -64,7 +64,7 @@ exports.trancationCreate = async(req,res) => {
 		users,
 		books,
 		user,
-		srcImg: user.avatar
+		srcImg: user.avatarUrl
 	})
 }
 

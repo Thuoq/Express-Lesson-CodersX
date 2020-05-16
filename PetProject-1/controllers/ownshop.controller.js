@@ -13,14 +13,14 @@ exports.indexOwnShop = async (req,res) => {
 	/*PADINATION*/
 	res.render("shop/shop",{
 		books,
-		srcImg : user.avatar,
+		srcImg : user.avatarUrl,
 		user, 
 	})
 }
 exports.getShopCreate = async ( req,res) => {
 	let user = await Users.findById(req.params.id);
 	res.render("shop/createshop",{
-		srcImg : user.avatar,
+		srcImg : user.avatarUrl,
 		user, 
 	})
 }
