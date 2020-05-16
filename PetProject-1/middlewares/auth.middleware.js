@@ -100,58 +100,68 @@ exports.isAdmin = async (req,res,next) => {
 }
 
 exports.verifyUserSignUp = async (req,res,next) => {
-	const {name,password,confirmPassword,email} = req.body;
-	let newAvatar = undefined;
-	if(req.file) {
-		const {file:{path: avatar}} = req;
-		newAvatar = avatar.split("\\").slice(1).join('/')
+	try{
+		const {name,password,confirmPassword,email} = req.body;
+		let newAvatar = undefined;
+		if(req.file) {
+			const {file:{path: avatar}} = req;
+			newAvatar = avatar.split("\\").slice(1).join('/')
+		}
+		let errors = [];
+		// VERIFY_USER_SIGNUP
+		if(password !== confirmPassword) {
+			errors.push("Don't match password. Please try again");
+			
+		}
+		let isUser = await Users.findOne({name:name});
+		if(isUser) {
+			errors.push("Users have exits. Please try another nick name!");
+		}
+		let isEmail = await Users.findOne({email: email});
+		if(isEmail) {
+			errors.push("Users have exits. Please try another nick name!");
+		}
+		if(errors.length) {
+			res.render('authentication/signup',{
+				errors,
+			})
+			return;  
+		}
+		// SECURITY Create Security PassWord AND STORE IN DATA
+		await bcrypt.hash(password, saltRounds, async function(err, hash) {
+			try{
+	   			 req.body.password = hash;
+	   			 let newUserSignUp =  Object.assign({},{
+	   			 		isAdmin:false,
+	   			 		avatar: newAvatar,
+						isPassword:0,
+						name,
+						password: req.body.password,
+						email});
+	   			let userNew = await new Users(newUserSignUp).save();
+	   			if(!newAvatar) {
+	   				res.cookie('userId', userNew.id,{
+		   					signed:true
+		   				})
+		   			res.locals.user = {name: name};
+		   			next();
+		   			return;
+	   			}
+	   			await cloudinary.uploader.upload(newAvatar,(err, result) => {
+	   				console.log(result,err)
+	   			});
+	   			 res.cookie('userId', userNew.id,{
+		   					signed:true
+		   				})
+	   			 res.locals.user = {name: name};
+	   			 next();
+			} catch (err) {
+				console.log(err);
+				res.render("errors")
+			}
+		});
+	} catch(err) {
+		console.log(err);
+		res.render("errors")
 	}
-	let errors = [];
-	// VERIFY_USER_SIGNUP
-	if(password !== confirmPassword) {
-		errors.push("Don't match password. Please try again");
-		
-	}
-	let isUser = await Users.findOne({name:name});
-	if(isUser) {
-		errors.push("Users have exits. Please try another nick name!");
-	}
-	let isEmail = await Users.findOne({email: email});
-	if(isEmail) {
-		errors.push("Users have exits. Please try another nick name!");
-	}
-	if(errors.length) {
-		res.render('authentication/signup',{
-			errors,
-		})
-		return;  
-	}
-	// SECURITY Create Security PassWord AND STORE IN DATA
-	await bcrypt.hash(password, saltRounds, async function(err, hash) {
-   			 req.body.password = hash;
-   			 let newUserSignUp =  Object.assign({},{
-   			 		isAdmin:false,
-   			 		avatar: newAvatar,
-					isPassword:0,
-					name,
-					password: req.body.password,
-					email});
-   			let userNew = await new Users(newUserSignUp).save();
-   			if(!newAvatar) {
-   				res.cookie('userId', userNew.id,{
-	   					signed:true
-	   				})
-	   			res.locals.user = {name: name};
-	   			next();
-	   			return;
-   			}
-   			await cloudinary.uploader.upload(newAvatar,{public_id:userNew.id } ,(error,result)=> {
-   			 
-   			});
-   			 res.cookie('userId', userNew.id,{
-	   					signed:true
-	   				})
-   			 res.locals.user = {name: name};
-   			 next();
-	});
 }
